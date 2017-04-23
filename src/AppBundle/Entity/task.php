@@ -24,6 +24,14 @@ class task
     /**
      * @var string
      *
+     * @ORM\Column(name="author", type="string", length=255)
+     */
+    private $author;
+
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="taskname", type="string", length=255)
      */
     private $taskname;
@@ -56,6 +64,13 @@ class task
      */
     private $taskdueto;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="status", type="string", length=255)
+     */
+    private $status;
+
 
     /**
      * Get id
@@ -65,6 +80,31 @@ class task
     public function getId()
     {
         return $this->id;
+    }
+
+
+    /**
+     * Set author
+     *
+     * @param string $author
+     *
+     * @return task
+     */
+    public function setauthor($author)
+    {
+        $this->author = $author;
+
+        return $this;
+    }
+
+    /**
+     * Get author
+     *
+     * @return string
+     */
+    public function getauthor()
+    {
+        return $this->author;
     }
 
     /**
@@ -129,6 +169,7 @@ class task
         return $this;
     }
 
+
     /**
      * Get priority
      *
@@ -185,6 +226,30 @@ class task
     public function getTaskdueto()
     {
         return $this->taskdueto;
+    }
+
+    /**
+     * Set status
+     *
+     * @param string $status
+     *
+     * @return task
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return string
+     */
+    public function getStatus()
+    {
+        return $this->status;
     }
 }
 

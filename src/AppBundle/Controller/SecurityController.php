@@ -27,7 +27,7 @@ class SecurityController extends Controller
         $form = $this->createForm(LoginType::class, $user);
         $form->handleRequest($request);
         if($form->isValid()) {
-            return $this->redirectToRoute('about page');
+            return $this->redirectToRoute('homepage');
         }
         // get the login error if there is one
     $error = $authenticationUtils->getLastAuthenticationError();

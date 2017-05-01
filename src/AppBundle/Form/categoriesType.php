@@ -2,9 +2,13 @@
 
 namespace AppBundle\Form;
 
+use Doctrine\DBAL\Types\DateTimeType;
+use Doctrine\DBAL\Types\TextType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 class categoriesType extends AbstractType
 {

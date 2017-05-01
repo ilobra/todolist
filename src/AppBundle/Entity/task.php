@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * task
@@ -71,6 +72,17 @@ class task
      */
     private $status;
 
+    /**
+     * Many tasks have One category
+     * @ORM\ManyToOne(targetEntity="categories", inversedBy="tasks")
+     *
+     */
+    private $category;
+
+    public function getCategory()
+    {
+        return $this->category;
+    }
 
     /**
      * Get id

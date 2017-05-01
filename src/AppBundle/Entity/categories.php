@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * categories
@@ -35,6 +36,21 @@ class categories
      */
     private $created;
 
+    /**
+     * One category has Many tasks.
+     * @ORM\OneToMany(targetEntity="task", mappedBy="category")
+     */
+    private $tasks;
+
+    public function __construct()
+    {
+        $this->tasks=new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    public function getTasks()
+    {
+        return $this->tasks;
+    }
 
     /**
      * Get id

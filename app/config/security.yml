@@ -6,6 +6,7 @@ security:
       AppBundle\Entity\users:
           algorithm: bcrypt
     # http://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
+
     providers:
         in_memory:
             memory: ~
@@ -18,15 +19,20 @@ security:
             security: false
 
         main:
-            anonymous: ~
-            form_login:
+          anonymous: ~
+
+          form_login:
               login_path: login
               check_path: login
-              default_target_path: about
+              default_target_path: home
+              always_use_default_target_path: true
 
-            logout:
+          logout:
               path:   /logout
               target: /
+
+    access_control:
+            - { path: ^/login, role: IS_AUTHENTICATED_ANONYMOUSLY}
             # activate different ways to authenticate
 
             # http://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate

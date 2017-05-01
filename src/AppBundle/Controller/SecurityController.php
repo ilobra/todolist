@@ -22,6 +22,7 @@ class SecurityController extends Controller
     {
         $user = new users();
 
+
         $authenticationUtils = $this->get('security.authentication_utils');
 
         $form = $this->createForm(LoginType::class, $user);

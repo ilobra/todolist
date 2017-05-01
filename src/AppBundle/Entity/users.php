@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Doctrine\Common\Collections\Collection;
 
 /**
  * users
@@ -28,6 +29,7 @@ class users implements UserInterface
      * @var string
      *
      * @ORM\Column(name="username", type="string", length=50, unique=true)
+     * @Assert\NotBlank()
      */
     private $username;
 
@@ -35,6 +37,7 @@ class users implements UserInterface
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=50)
+     * @Assert\NotBlank()
      */
     private $name;
 
@@ -42,6 +45,7 @@ class users implements UserInterface
      * @var string
      *
      * @ORM\Column(name="email", type="string", length=255, unique=true)
+     * @Assert\NotBlank()
      */
     private $email;
 
@@ -55,9 +59,27 @@ class users implements UserInterface
      * @var string
      *
      * @ORM\Column(name="password", type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $password;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="task")
+     * @ORM\JoinTable(name="users_tasks",
+     *     joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="task_id", referencedColumnName="id")}
+     *     )
+     */
+    private $userstasks;
+
+    public function __construct()
+    {
+        $this->userstasks=new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    public function getUsersTasks()
+    {
+        return $this->userstasks;
+    }
 
     /**
      * Get id

@@ -6,15 +6,16 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Doctrine\Common\Collections\Collection;
 
 /**
- * users
+ * Users
  *
  * @ORM\Table(name="users")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\usersRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\UsersRepository")
+ * @UniqueEntity(fields="email", message="Email is already taken")
+ * @UniqueEntity(fields="username", message="Username is already taken")
  */
-class users implements UserInterface
+class Users implements UserInterface
 {
     /**
      * @var int
@@ -46,6 +47,7 @@ class users implements UserInterface
      *
      * @ORM\Column(name="email", type="string", length=255, unique=true)
      * @Assert\NotBlank()
+     * @Assert\Email()
      */
     private $email;
 
@@ -58,28 +60,10 @@ class users implements UserInterface
     /**
      * @var string
      *
-     * @ORM\Column(name="password", type="string", length=255)
-     * @Assert\NotBlank()
+     * @ORM\Column(name="password", type="string", length=64)
      */
     private $password;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="task")
-     * @ORM\JoinTable(name="users_tasks",
-     *     joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
-     *     inverseJoinColumns={@ORM\JoinColumn(name="task_id", referencedColumnName="id")}
-     *     )
-     */
-    private $userstasks;
-
-    public function __construct()
-    {
-        $this->userstasks=new \Doctrine\Common\Collections\ArrayCollection();
-    }
-    public function getUsersTasks()
-    {
-        return $this->userstasks;
-    }
 
     /**
      * Get id
@@ -96,7 +80,7 @@ class users implements UserInterface
      *
      * @param string $username
      *
-     * @return users
+     * @return Users
      */
     public function setUsername($username)
     {
@@ -120,7 +104,7 @@ class users implements UserInterface
      *
      * @param string $name
      *
-     * @return users
+     * @return Users
      */
     public function setName($name)
     {
@@ -144,7 +128,7 @@ class users implements UserInterface
      *
      * @param string $email
      *
-     * @return users
+     * @return Users
      */
     public function setEmail($email)
     {
@@ -163,20 +147,15 @@ class users implements UserInterface
         return $this->email;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getPlainPassword()
-    {
-        return $this->plainPassword;
-    }
 
-    /**
-     * @param mixed $plainPassword
-     */
     public function setPlainPassword($password)
     {
         $this->plainPassword = $password;
+    }
+
+    public function getPlainPassword()
+    {
+        return $this->plainPassword;
     }
 
     /**
@@ -184,7 +163,7 @@ class users implements UserInterface
      *
      * @param string $password
      *
-     * @return users
+     * @return Users
      */
     public function setPassword($password)
     {
@@ -212,31 +191,11 @@ class users implements UserInterface
     {
         // TODO: Implement eraseCredentials() method.
     }
+
     public function getRoles()
     {
-        return array('ROLE_USER');
+        // TODO: Implement getRoles() method.
     }
 
-    /** @see \Serializable::serialize() */
-    public function serialize()
-    {
-        return serialize(array(
-            $this->id,
-            $this->name,
-            $this->username,
-            $this->password,
-        ));
-    }
 
-    /** @see \Serializable::unserialize() */
-    public function unserialize($serialized)
-    {
-        list (
-            $this->id,
-            $this->name,
-            $this->username,
-            $this->password
-            )=$this->unserialize($serialized);
-    }
 }
-

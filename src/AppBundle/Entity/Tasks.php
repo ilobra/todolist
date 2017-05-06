@@ -3,15 +3,14 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * task
+ * Tasks
  *
- * @ORM\Table(name="task")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\taskRepository")
+ * @ORM\Table(name="tasks")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\TasksRepository")
  */
-class task
+class Tasks
 {
     /**
      * @var int
@@ -25,14 +24,6 @@ class task
     /**
      * @var string
      *
-     * @ORM\Column(name="author", type="string", length=255)
-     */
-    private $author;
-
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="taskname", type="string", length=255)
      */
     private $taskname;
@@ -40,7 +31,7 @@ class task
     /**
      * @var string
      *
-     * @ORM\Column(name="taskcomment", type="text")
+     * @ORM\Column(name="taskcomment", type="text", nullable=true)
      */
     private $taskcomment;
 
@@ -54,16 +45,16 @@ class task
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="taskcreated", type="datetime")
+     * @ORM\Column(name="created", type="datetime")
      */
-    private $taskcreated;
+    private $created;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="taskdueto", type="datetime")
+     * @ORM\Column(name="dueto", type="datetime")
      */
-    private $taskdueto;
+    private $dueto;
 
     /**
      * @var string
@@ -72,17 +63,20 @@ class task
      */
     private $status;
 
+
     /**
-     * Many tasks have One category
-     * @ORM\ManyToOne(targetEntity="categories", inversedBy="tasks")
-     *
+     * Many Tasks have One Category.
+     * @ORM\ManyToOne(targetEntity="Categories", inversedBy="categorytasks")
+     * @ORM\JoinColumn(name="category", referencedColumnName="id")
      */
     private $category;
 
-    public function getCategory()
-    {
-        return $this->category;
-    }
+    /**
+     * Many Tasks have One Author
+     * @ORM\ManyToOne(targetEntity="Members", inversedBy="membertasks")
+     * @ORM\JoinColumn(name="author", referencedColumnName="id")
+     */
+    private $author;
 
     /**
      * Get id
@@ -94,37 +88,12 @@ class task
         return $this->id;
     }
 
-
-    /**
-     * Set author
-     *
-     * @param string $author
-     *
-     * @return task
-     */
-    public function setauthor($author)
-    {
-        $this->author = $author;
-
-        return $this;
-    }
-
-    /**
-     * Get author
-     *
-     * @return string
-     */
-    public function getauthor()
-    {
-        return $this->author;
-    }
-
     /**
      * Set taskname
      *
      * @param string $taskname
      *
-     * @return task
+     * @return Tasks
      */
     public function setTaskname($taskname)
     {
@@ -148,7 +117,7 @@ class task
      *
      * @param string $taskcomment
      *
-     * @return task
+     * @return Tasks
      */
     public function setTaskcomment($taskcomment)
     {
@@ -172,7 +141,7 @@ class task
      *
      * @param string $priority
      *
-     * @return task
+     * @return Tasks
      */
     public function setPriority($priority)
     {
@@ -180,7 +149,6 @@ class task
 
         return $this;
     }
-
 
     /**
      * Get priority
@@ -193,51 +161,51 @@ class task
     }
 
     /**
-     * Set taskcreated
+     * Set created
      *
-     * @param \DateTime $taskcreated
+     * @param \DateTime $created
      *
-     * @return task
+     * @return Tasks
      */
-    public function setTaskcreated($taskcreated)
+    public function setCreated($created)
     {
-        $this->taskcreated = $taskcreated;
+        $this->created = $created;
 
         return $this;
     }
 
     /**
-     * Get taskcreated
+     * Get created
      *
      * @return \DateTime
      */
-    public function getTaskcreated()
+    public function getCreated()
     {
-        return $this->taskcreated;
+        return $this->created;
     }
 
     /**
-     * Set taskdueto
+     * Set dueto
      *
-     * @param \DateTime $taskdueto
+     * @param \DateTime $dueto
      *
-     * @return task
+     * @return Tasks
      */
-    public function setTaskdueto($taskdueto)
+    public function setDueto($dueto)
     {
-        $this->taskdueto = $taskdueto;
+        $this->dueto = $dueto;
 
         return $this;
     }
 
     /**
-     * Get taskdueto
+     * Get dueto
      *
      * @return \DateTime
      */
-    public function getTaskdueto()
+    public function getDueto()
     {
-        return $this->taskdueto;
+        return $this->dueto;
     }
 
     /**
@@ -245,7 +213,7 @@ class task
      *
      * @param string $status
      *
-     * @return task
+     * @return Tasks
      */
     public function setStatus($status)
     {
@@ -263,5 +231,52 @@ class task
     {
         return $this->status;
     }
-}
 
+    /**
+     * Set category
+     *
+     * @param \AppBundle\Entity\Categories $category
+     *
+     * @return Tasks
+     */
+    public function setCategory(\AppBundle\Entity\Categories $category = null)
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * Get category
+     *
+     * @return \AppBundle\Entity\Categories
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    /**
+     * Set author
+     *
+     * @param \AppBundle\Entity\Members $author
+     *
+     * @return Tasks
+     */
+    public function setAuthor(\AppBundle\Entity\Members $author = null)
+    {
+        $this->author = $author;
+
+        return $this;
+    }
+
+    /**
+     * Get author
+     *
+     * @return \AppBundle\Entity\Members
+     */
+    public function getAuthor()
+    {
+        return $this->author;
+    }
+}

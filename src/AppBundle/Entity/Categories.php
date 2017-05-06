@@ -3,15 +3,14 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * categories
+ * Categories
  *
  * @ORM\Table(name="categories")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\categoriesRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\CategoriesRepository")
  */
-class categories
+class Categories
 {
     /**
      * @var int
@@ -37,19 +36,14 @@ class categories
     private $created;
 
     /**
-     * One category has Many tasks.
-     * @ORM\OneToMany(targetEntity="task", mappedBy="category")
+     * One Category has Many Tasks.
+     * @ORM\OneToMany(targetEntity="Tasks", mappedBy="category")
      */
-    private $tasks;
+    private $categorytasks;
 
     public function __construct()
     {
-        $this->tasks=new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    public function getTasks()
-    {
-        return $this->tasks;
+        $this->categorytasks = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -67,7 +61,7 @@ class categories
      *
      * @param string $categoryname
      *
-     * @return categories
+     * @return Categories
      */
     public function setCategoryname($categoryname)
     {
@@ -91,7 +85,7 @@ class categories
      *
      * @param \DateTime $created
      *
-     * @return categories
+     * @return Categories
      */
     public function setCreated($created)
     {
@@ -109,5 +103,43 @@ class categories
     {
         return $this->created;
     }
-}
 
+    /**
+     * Add categorytask
+     *
+     * @param \AppBundle\Entity\Tasks $categorytask
+     *
+     * @return Categories
+     */
+    public function addCategorytask(\AppBundle\Entity\Tasks $categorytask)
+    {
+        $this->categorytasks[] = $categorytask;
+
+        return $this;
+    }
+
+    /**
+     * Remove categorytask
+     *
+     * @param \AppBundle\Entity\Tasks $categorytask
+     */
+    public function removeCategorytask(\AppBundle\Entity\Tasks $categorytask)
+    {
+        $this->categorytasks->removeElement($categorytask);
+    }
+
+    /**
+     * Get categorytasks
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCategorytasks()
+    {
+        return $this->categorytasks;
+    }
+
+    public function __toString()
+    {
+        return $this->categoryname;
+    }
+}

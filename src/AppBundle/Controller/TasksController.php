@@ -2,45 +2,49 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\task;
+use AppBundle\Entity\Categories;
+use AppBundle\Entity\Tasks;
+use AppBundle\Entity\Members;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
 
+
 /**
  * Task controller.
  *
- * @Route("task")
+ * @Route("tasks")
  */
-class taskController extends Controller
+class TasksController extends Controller
 {
     /**
      * Lists all task entities.
      *
-     * @Route("/", name="task_index")
+     * @Route("/", name="tasks_index")
      * @Method("GET")
      */
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
 
-        $tasks = $em->getRepository('AppBundle:task')->findAll();
+        $tasks = $em->getRepository('AppBundle:Tasks')->findAll();
 
-        return $this->render('task/index.html.twig', array(
+        return $this->render('tasks/index.html.twig', array(
             'tasks' => $tasks,
+
         ));
     }
 
     /**
      * Creates a new task entity.
      *
-     * @Route("/new", name="task_new")
+     * @Route("/new", name="tasks_new")
      * @Method({"GET", "POST"})
      */
     public function newAction(Request $request)
     {
-        $task = new Task();
-        $form = $this->createForm('AppBundle\Form\taskType', $task);
+        $task = new Tasks();
+        $form = $this->createForm('AppBundle\Form\TasksType', $task);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -48,10 +52,10 @@ class taskController extends Controller
             $em->persist($task);
             $em->flush();
 
-            return $this->redirectToRoute('task_show', array('id' => $task->getId()));
+            return $this->redirectToRoute('tasks_show', array('id' => $task->getId()));
         }
 
-        return $this->render('task/new.html.twig', array(
+        return $this->render('tasks/new.html.twig', array(
             'task' => $task,
             'form' => $form->createView(),
         ));
@@ -60,15 +64,18 @@ class taskController extends Controller
     /**
      * Finds and displays a task entity.
      *
-     * @Route("/{id}", name="task_show")
+     * @Route("/{id}", name="tasks_show")
      * @Method("GET")
      */
-    public function showAction(task $task)
+    public function showAction(Tasks $task, Members $memberid, Categories $catId)
     {
         $deleteForm = $this->createDeleteForm($task);
-
-        return $this->render('task/show.html.twig', array(
+        $author = $this->getDoctrine()->getRepository('AppBundle:Members')->find($memberid);
+        $category = $this->getDoctrine()->getRepository('AppBundle:Categories')->find($catId);
+        return $this->render('tasks/show.html.twig', array(
             'task' => $task,
+            'author' => $author,
+            'category' => $category,
             'delete_form' => $deleteForm->createView(),
         ));
     }
@@ -76,22 +83,22 @@ class taskController extends Controller
     /**
      * Displays a form to edit an existing task entity.
      *
-     * @Route("/{id}/edit", name="task_edit")
+     * @Route("/{id}/edit", name="tasks_edit")
      * @Method({"GET", "POST"})
      */
-    public function editAction(Request $request, task $task)
+    public function editAction(Request $request, Tasks $task)
     {
         $deleteForm = $this->createDeleteForm($task);
-        $editForm = $this->createForm('AppBundle\Form\taskType', $task);
+        $editForm = $this->createForm('AppBundle\Form\TasksType', $task);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('task_edit', array('id' => $task->getId()));
+            return $this->redirectToRoute('tasks_edit', array('id' => $task->getId()));
         }
 
-        return $this->render('task/edit.html.twig', array(
+        return $this->render('tasks/edit.html.twig', array(
             'task' => $task,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
@@ -101,10 +108,10 @@ class taskController extends Controller
     /**
      * Deletes a task entity.
      *
-     * @Route("/{id}", name="task_delete")
+     * @Route("/{id}", name="tasks_delete")
      * @Method("DELETE")
      */
-    public function deleteAction(Request $request, task $task)
+    public function deleteAction(Request $request, Tasks $task)
     {
         $form = $this->createDeleteForm($task);
         $form->handleRequest($request);
@@ -115,20 +122,20 @@ class taskController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('task_index');
+        return $this->redirectToRoute('tasks_index');
     }
 
     /**
      * Creates a form to delete a task entity.
      *
-     * @param task $task The task entity
+     * @param Tasks $task The task entity
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm(task $task)
+    private function createDeleteForm(Tasks $task)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('task_delete', array('id' => $task->getId())))
+            ->setAction($this->generateUrl('tasks_delete', array('id' => $task->getId())))
             ->setMethod('DELETE')
             ->getForm()
         ;

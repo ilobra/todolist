@@ -2,7 +2,7 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\users;
+use AppBundle\Entity\Users;
 use AppBundle\Form\LoginType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,14 +20,13 @@ class SecurityController extends Controller
      **/
     public function loginAction(Request $request)
     {
-        $user = new users();
-
+        $user = new Users();
 
         $authenticationUtils = $this->get('security.authentication_utils');
 
         $form = $this->createForm(LoginType::class, $user);
         $form->handleRequest($request);
-        if($form->isValid()) {
+        if($form->isSubmitted() && $form->isValid()) {
             return $this->redirectToRoute('homepage');
         }
         // get the login error if there is one

@@ -2,22 +2,18 @@
 
 namespace AppBundle\Form;
 
-use Doctrine\DBAL\Types\DateTimeType;
-use Doctrine\DBAL\Types\TextType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\NotBlank;
-use Symfony\Component\Validator\Constraints\DateTime;
 
-class categoriesType extends AbstractType
+class TasksType extends AbstractType
 {
     /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('categoryname')->add('created');
+        $builder->add('taskname')->add('taskcomment')->add('priority')->add('created')->add('dueto')->add('status')->add('category')->add('author');
     }
     
     /**
@@ -26,7 +22,7 @@ class categoriesType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\categories'
+            'data_class' => 'AppBundle\Entity\Tasks'
         ));
     }
 
@@ -35,7 +31,7 @@ class categoriesType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'appbundle_categories';
+        return 'appbundle_tasks';
     }
 
 

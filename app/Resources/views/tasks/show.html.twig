@@ -22,22 +22,34 @@
                 <td>{{ task.priority }}</td>
             </tr>
             <tr>
-                <th>Taskcreated</th>
-                <td>{% if task.taskcreated %}{{ task.taskcreated|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <th>Created</th>
+                <td>{% if task.created %}{{ task.created|date('Y-m-d H:i:s') }}{% endif %}</td>
             </tr>
             <tr>
-                <th>Taskdueto</th>
-                <td>{% if task.taskdueto %}{{ task.taskdueto|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <th>Dueto</th>
+                <td>{% if task.dueto %}{{ task.dueto|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td>{{ task.status }}</td>
+            </tr>
+            <tr>
+                <th>Author</th>
+                <td>{{ author.name }}</td>
+            </tr>
+            <tr>
+                <th>Category</th>
+                <td>{{ category.categoryname }}</td>
             </tr>
         </tbody>
     </table>
 
     <ul>
         <li>
-            <a href="{{ path('task_index') }}">Back to the list</a>
+            <a href="{{ path('tasks_index') }}">Back to the list</a>
         </li>
         <li>
-            <a href="{{ path('task_edit', { 'id': task.id }) }}">Edit</a>
+            <a href="{{ path('tasks_edit', { 'id': task.id }) }}">Edit</a>
         </li>
         <li>
             {{ form_start(delete_form) }}

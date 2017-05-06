@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Tasks list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Task name</th>
+                <th>Comment about task</th>
+                <th>Priority</th>
+                <th>Created</th>
+                <th>Due to</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for task in tasks %}
+            <tr>
+                <td><a href="{{ path('tasks_show', { 'id': task.id }) }}">{{ task.id }}</a></td>
+                <td>{{ task.taskname }}</td>
+                <td>{{ task.taskcomment }}</td>
+                <td>{{ task.priority }}</td>
+                <td>{% if task.created %}{{ task.created|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if task.dueto %}{{ task.dueto|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ task.status }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('tasks_show', { 'id': task.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('tasks_edit', { 'id': task.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('tasks_new') }}">Create a new task</a>
+        </li>
+    </ul>
+{% endblock %}

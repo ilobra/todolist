@@ -13,6 +13,6 @@ class HomeController extends Controller
      */
     public function indexAction()
     {
-        return $this->render('default/index.html.twig', array());
+        return $this->render('homepage/homepage.html.twig', array());
     }
 }

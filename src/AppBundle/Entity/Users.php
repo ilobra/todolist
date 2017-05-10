@@ -29,7 +29,7 @@ class Users implements UserInterface
     /**
      * @var string
      *
-     * @ORM\Column(name="username", type="string", length=50, unique=true)
+     * @ORM\Column(name="username", type="string", length=50, unique=true, nullable=false)
      * @Assert\NotBlank()
      */
     private $username;
@@ -37,22 +37,28 @@ class Users implements UserInterface
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=50)
+     * @ORM\Column(name="name", type="string", length=50, nullable=false)
      * @Assert\NotBlank()
      */
     private $name;
 
     /**
      * @var string
+     * @ORM\Column(name="lastname", type="string", length=50)
+     */
+    private $lastname;
+
+    /**
+     * @var string
      *
-     * @ORM\Column(name="email", type="string", length=255, unique=true)
+     * @ORM\Column(name="email", type="string", length=100, unique=true, nullable=false)
      * @Assert\NotBlank()
      * @Assert\Email()
      */
     private $email;
 
     /**
-     * @ORM\Column(type="string", length=50)
+     * @ORM\Column(name="role", type="string", length=50)
      */
     protected $role;
 
@@ -70,7 +76,23 @@ class Users implements UserInterface
      */
     private $password;
 
+    /**
+     * One User has Many Tasks
+     * @ORM\OneToMany(targetEntity="Tasks", mappedBy="author")
+     */
+    private $usertasks;
 
+    /**
+     * One User has Many UsersTeams
+     * @ORM\OneToMany(targetEntity="UsersTeams", mappedBy="user")
+     */
+    private $usersteamsUser;
+
+    public function __construct()
+    {
+        $this->usertasks = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->usersteamsUser = new \Doctrine\Common\Collections\ArrayCollection();
+    }
     /**
      * Get id
      *
@@ -224,4 +246,102 @@ class Users implements UserInterface
         return $this->username;
     }
 
+    /**
+     * @return string
+     */
+    public function getLastname()
+    {
+        return $this->lastname;
+    }
+
+    /**
+     * @param string $lastname
+     */
+    public function setLastname($lastname)
+    {
+        $this->lastname = $lastname;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUsertasks()
+    {
+        return $this->usertasks;
+    }
+
+    /**
+     * @param mixed $usertasks
+     */
+    public function setUsertasks($usertasks)
+    {
+        $this->usertasks = $usertasks;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUsersteamsUser()
+    {
+        return $this->usersteamsUser;
+    }
+
+    /**
+     * @param mixed $usersteamsUser
+     */
+    public function setUsersteamsUser($usersteamsUser)
+    {
+        $this->usersteamsUser = $usersteamsUser;
+    }
+
+
+
+
+    /**
+     * Add usertask
+     *
+     * @param \AppBundle\Entity\Tasks $usertask
+     *
+     * @return Users
+     */
+    public function addUsertask(\AppBundle\Entity\Tasks $usertask)
+    {
+        $this->usertasks[] = $usertask;
+
+        return $this;
+    }
+
+    /**
+     * Remove usertask
+     *
+     * @param \AppBundle\Entity\Tasks $usertask
+     */
+    public function removeUsertask(\AppBundle\Entity\Tasks $usertask)
+    {
+        $this->usertasks->removeElement($usertask);
+    }
+
+    /**
+     * Add usersteamsUser
+     *
+     * @param \AppBundle\Entity\UsersTeams $usersteamsUser
+     *
+     * @return Users
+     */
+    public function addUsersteamsUser(\AppBundle\Entity\UsersTeams $usersteamsUser)
+    {
+        $this->usersteamsUser[] = $usersteamsUser;
+
+        return $this;
+    }
+
+    /**
+     * Remove usersteamsUser
+     *
+     * @param \AppBundle\Entity\UsersTeams $usersteamsUser
+     */
+    public function removeUsersteamsUser(\AppBundle\Entity\UsersTeams $usersteamsUser)
+    {
+        $this->usersteamsUser->removeElement($usersteamsUser);
+    }
 }

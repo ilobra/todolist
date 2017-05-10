@@ -13,9 +13,11 @@
 
     <!-- Bootstrap core CSS -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
     {% block stylesheets %}
     <!-- Custom styles for this template -->
-    <link href="jumbotron.css" rel="stylesheet">{% endblock %}
+    <link href="jumbotron.css" rel="stylesheet">
+    {% endblock %}
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
@@ -43,8 +45,8 @@
             </button>
             <a class="navbar-brand" href="#">Todo List</a>
         </div>
-        <div id="navbar" class="navbar-collapse collapse">
-           <!-- <form class="navbar-form navbar-right">
+        <!--<div id="navbar" class="navbar-collapse collapse">
+            <form class="navbar-form navbar-right">
                 <div class="form-group">
                     <input type="text" placeholder="Username" class="form-control">
                 </div>
@@ -52,7 +54,7 @@
                     <input type="password" placeholder="Password" class="form-control">
                 </div>
                 <button type="submit" class="btn btn-success">Sign in</button>
-            </form> -->
+            </form>
         </div><!--/.navbar-collapse -->
     </div>
 </nav>

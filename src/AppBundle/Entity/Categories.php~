@@ -24,7 +24,7 @@ class Categories
     /**
      * @var string
      *
-     * @ORM\Column(name="categoryname", type="string", length=255, unique=true)
+     * @ORM\Column(name="categoryname", type="string", length=100, unique=true)
      */
     private $categoryname;
 
@@ -136,5 +136,10 @@ class Categories
     public function getCategorytasks()
     {
         return $this->categorytasks;
+    }
+
+    public function __toString()
+    {
+        return $this->categoryname;
     }
 }

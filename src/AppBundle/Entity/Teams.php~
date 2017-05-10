@@ -24,11 +24,22 @@ class Teams
     /**
      * @var string
      *
-     * @ORM\Column(name="teamname", type="string", length=255, unique=true)
+     * @ORM\Column(name="teamname", type="string", length=255, nullable=false)
+     *
      */
     private $teamname;
 
+    /**
+     * One Team has Many UsersTeams
+     * @ORM\OneToMany(targetEntity="UsersTeams", mappedBy="team")
+     */
+    private $usersteamsTeam;
 
+
+    public function __construct()
+    {
+        $this->usersteamsTeam = new \Doctrine\Common\Collections\ArrayCollection();
+    }
     /**
      * Get id
      *
@@ -59,6 +70,11 @@ class Teams
      * @return string
      */
     public function getTeamname()
+    {
+        return $this->teamname;
+    }
+
+    public function __toString()
     {
         return $this->teamname;
     }

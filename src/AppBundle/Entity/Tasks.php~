@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Tasks
@@ -24,7 +25,8 @@ class Tasks
     /**
      * @var string
      *
-     * @ORM\Column(name="taskname", type="string", length=255)
+     * @ORM\Column(name="taskname", type="string", length=100, nullable=false)
+     * @Assert\NotBlank()
      */
     private $taskname;
 
@@ -32,20 +34,17 @@ class Tasks
      * @var string
      *
      * @ORM\Column(name="taskcomment", type="text", nullable=true)
+     *
      */
     private $taskcomment;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="priority", type="string", length=255)
-     */
-    private $priority;
+
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="created", type="datetime")
+     * @ORM\Column(name="created", type="datetime", nullable=false)
+     * @Assert\NotBlank()
      */
     private $created;
 
@@ -59,7 +58,8 @@ class Tasks
     /**
      * @var string
      *
-     * @ORM\Column(name="status", type="string", length=255)
+     * @ORM\Column(name="status", type="string", length=100, nullable=false)
+     * @Assert\NotBlank()
      */
     private $status;
 
@@ -67,16 +67,23 @@ class Tasks
     /**
      * Many Tasks have One Category.
      * @ORM\ManyToOne(targetEntity="Categories", inversedBy="categorytasks")
-     * @ORM\JoinColumn(name="category", referencedColumnName="id")
+     * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
      */
     private $category;
 
     /**
      * Many Tasks have One Author
-     * @ORM\ManyToOne(targetEntity="Members", inversedBy="membertasks")
-     * @ORM\JoinColumn(name="author", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="Users", inversedBy="usertasks")
+     * @ORM\JoinColumn(name="authorUser_id", referencedColumnName="id")
      */
     private $author;
+
+    /**
+     * Many Tasks have One Priority
+     * @ORM\ManyToOne(targetEntity="Priorities", inversedBy="prioritytask")
+     * @ORM\JoinColumn(name="priority_id", referencedColumnName="id")
+     */
+    private $priority;
 
     /**
      * Get id
@@ -136,29 +143,6 @@ class Tasks
         return $this->taskcomment;
     }
 
-    /**
-     * Set priority
-     *
-     * @param string $priority
-     *
-     * @return Tasks
-     */
-    public function setPriority($priority)
-    {
-        $this->priority = $priority;
-
-        return $this;
-    }
-
-    /**
-     * Get priority
-     *
-     * @return string
-     */
-    public function getPriority()
-    {
-        return $this->priority;
-    }
 
     /**
      * Set created
@@ -259,11 +243,11 @@ class Tasks
     /**
      * Set author
      *
-     * @param \AppBundle\Entity\Members $author
+     * @param \AppBundle\Entity\Priorities $author
      *
      * @return Tasks
      */
-    public function setAuthor(\AppBundle\Entity\Members $author = null)
+    public function setAuthor(\AppBundle\Entity\Priorities $author = null)
     {
         $this->author = $author;
 
@@ -273,10 +257,28 @@ class Tasks
     /**
      * Get author
      *
-     * @return \AppBundle\Entity\Members
+     * @return \AppBundle\Entity\Priorities
      */
     public function getAuthor()
     {
         return $this->author;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getPriority()
+    {
+        return $this->priority;
+    }
+
+    /**
+     * @param mixed $priority
+     */
+    public function setPriority($priority)
+    {
+        $this->priority = $priority;
+    }
+
+
 }

@@ -24,11 +24,22 @@ class Teams
     /**
      * @var string
      *
-     * @ORM\Column(name="teamname", type="string", length=255, unique=true)
+     * @ORM\Column(name="teamname", type="string", length=255, nullable=false)
+     *
      */
     private $teamname;
 
+    /**
+     * One Team has Many UsersTeams
+     * @ORM\OneToMany(targetEntity="UsersTeams", mappedBy="team")
+     */
+    private $usersteamsTeam;
 
+
+    public function __construct()
+    {
+        $this->usersteamsTeam = new \Doctrine\Common\Collections\ArrayCollection();
+    }
     /**
      * Get id
      *
@@ -66,5 +77,39 @@ class Teams
     public function __toString()
     {
         return $this->teamname;
+    }
+
+    /**
+     * Add usersteamsTeam
+     *
+     * @param \AppBundle\Entity\UsersTeams $usersteamsTeam
+     *
+     * @return Teams
+     */
+    public function addUsersteamsTeam(\AppBundle\Entity\UsersTeams $usersteamsTeam)
+    {
+        $this->usersteamsTeam[] = $usersteamsTeam;
+
+        return $this;
+    }
+
+    /**
+     * Remove usersteamsTeam
+     *
+     * @param \AppBundle\Entity\UsersTeams $usersteamsTeam
+     */
+    public function removeUsersteamsTeam(\AppBundle\Entity\UsersTeams $usersteamsTeam)
+    {
+        $this->usersteamsTeam->removeElement($usersteamsTeam);
+    }
+
+    /**
+     * Get usersteamsTeam
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getUsersteamsTeam()
+    {
+        return $this->usersteamsTeam;
     }
 }

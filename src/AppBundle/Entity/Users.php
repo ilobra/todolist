@@ -15,7 +15,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @UniqueEntity(fields="email", message="Email is already taken")
  * @UniqueEntity(fields="username", message="Username is already taken")
  */
-class Users implements UserInterface
+class Users implements UserInterface, \Serializable
 {
     /**
      * @var int
@@ -30,6 +30,10 @@ class Users implements UserInterface
      * @var string
      *
      * @ORM\Column(name="username", type="string", length=50, unique=true, nullable=false)
+     * @Assert\Length(
+     *     min="8",
+     *     minMessage="Your name must be at least 8 characters long"
+     * )
      * @Assert\NotBlank()
      */
     private $username;
@@ -37,14 +41,13 @@ class Users implements UserInterface
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=50, nullable=false)
-     * @Assert\NotBlank()
+     * @ORM\Column(name="name", type="string", length=50, nullable=true)
      */
     private $name;
 
     /**
      * @var string
-     * @ORM\Column(name="lastname", type="string", length=50)
+     * @ORM\Column(name="lastname", type="string", length=50, nullable=true)
      */
     private $lastname;
 
@@ -58,7 +61,7 @@ class Users implements UserInterface
     private $email;
 
     /**
-     * @ORM\Column(name="role", type="string", length=50)
+     * @ORM\Column(name="role", type="string", length=50, nullable=true)
      */
     protected $role;
 
@@ -66,6 +69,10 @@ class Users implements UserInterface
     /**
      * @Assert\NotBlank()
      * @Assert\Length(max=4096)
+     * @Assert\Regex(
+     *      pattern="/(?=.*[0-9])(?=.*[a-z]).{5,}$/",
+     *      message="Password mush be at least 5 characters long, have a lover case character and a digit"
+     * )
      */
     private $plainPassword;
 
@@ -73,6 +80,7 @@ class Users implements UserInterface
      * @var string
      *
      * @ORM\Column(name="password", type="string", length=64)
+     *
      */
     private $password;
 
@@ -210,15 +218,6 @@ class Users implements UserInterface
         return $this->password;
     }
 
-    public function getSalt()
-    {
-        return null;
-    }
-
-    public function eraseCredentials()
-    {
-        return null;
-    }
 
     /**
      * @return mixed
@@ -228,10 +227,6 @@ class Users implements UserInterface
         return $this->role;
     }
 
-    public function getRoles()
-    {
-       return [$this->getRole()];
-    }
 
     /**
      * @param mixed $role
@@ -343,5 +338,30 @@ class Users implements UserInterface
     public function removeUsersteamsUser(\AppBundle\Entity\UsersTeams $usersteamsUser)
     {
         $this->usersteamsUser->removeElement($usersteamsUser);
+    }
+
+    public function serialize()
+    {
+        // TODO: Implement serialize() method.
+    }
+
+    public function unserialize($serialized)
+    {
+        // TODO: Implement unserialize() method.
+    }
+
+    public function getRoles()
+    {
+        return [$this->getRole()];
+    }
+
+    public function getSalt()
+    {
+        return null;
+    }
+
+    public function eraseCredentials()
+    {
+        return null;
     }
 }

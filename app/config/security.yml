@@ -3,13 +3,31 @@
 security:
 
     encoders:
-      AppBundle\Entity\users:
+
+      AppBundle\Entity\Users:
+          algorithm: bcrypt
+      Symfony\Component\Security\Core\User\User:
           algorithm: bcrypt
     # http://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
 
     providers:
+        db_provider:
+          entity:
+            class: AppBundle:Users
+            property: username
+
         in_memory:
-            memory: ~
+            memory:
+              users:
+                admin:
+                  password: $2y$13$HMCpX20us47.PnOGJATfuuw6MDsaCPr7FrIx1pJpWvPHogTHuAUYi
+                  roles: 'ROLE_ADMIN'
+
+        chain_provider:
+          chain:
+            providers:
+              - in_memory
+              - db_provider
 
 
     firewalls:
@@ -20,7 +38,7 @@ security:
 
         main:
           anonymous: ~
-
+          provider: chain_provider
           form_login:
               login_path: /login
               check_path: /login

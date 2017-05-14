@@ -2,6 +2,8 @@
 
 namespace AppBundle\Form;
 
+use AppBundle\Entity\UsersTeams;
+use AppBundle\Entity\Teams;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -13,7 +15,7 @@ class MembersType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name')->add('user')->add('teams');
+        $builder->add('name')->add('usersteamsUser')/*->add('teams')*/;
     }
     
     /**
@@ -22,7 +24,7 @@ class MembersType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Members'
+            'data_class' => 'AppBundle\Entity\Users'
         ));
     }
 

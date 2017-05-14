@@ -364,4 +364,5 @@ class Users implements UserInterface, \Serializable
     {
         return null;
     }
+
 }

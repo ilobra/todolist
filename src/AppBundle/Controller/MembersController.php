@@ -2,7 +2,7 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\Members;
+//use AppBundle\Entity\Members;
 use AppBundle\Entity\Users;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -25,7 +25,7 @@ class MembersController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $members = $em->getRepository('AppBundle:Members')->findAll();
+        $members = $em->getRepository('AppBundle:Users')->findAll();
         $teams = $em->getRepository('AppBundle:Teams')->findAll();
 
         return $this->render('members/index.html.twig', array(
@@ -44,7 +44,7 @@ class MembersController extends Controller
      */
     public function newAction(Request $request)
     {
-        $member = new Members();
+        $member = new Users();
         $form = $this->createForm('AppBundle\Form\MembersType', $member);
         $form->handleRequest($request);
 
@@ -68,7 +68,7 @@ class MembersController extends Controller
      * @Route("/{id}", name="members_show")
      * @Method("GET")
      */
-    public function showAction(Members $member, Users $userid)
+    public function showAction(Users $member, Users $userid)
     {
         $deleteForm = $this->createDeleteForm($member);
         $user=$this->getDoctrine()->getRepository('AppBundle:Users')->find($userid);
@@ -85,7 +85,7 @@ class MembersController extends Controller
      * @Route("/{id}/edit", name="members_edit")
      * @Method({"GET", "POST"})
      */
-    public function editAction(Request $request, Members $member)
+    public function editAction(Request $request, Users $member)
     {
         $deleteForm = $this->createDeleteForm($member);
         $editForm = $this->createForm('AppBundle\Form\MembersType', $member);
@@ -110,7 +110,7 @@ class MembersController extends Controller
      * @Route("/{id}", name="members_delete")
      * @Method("DELETE")
      */
-    public function deleteAction(Request $request, Members $member)
+    public function deleteAction(Request $request, Users $member)
     {
         $form = $this->createDeleteForm($member);
         $form->handleRequest($request);
@@ -131,7 +131,7 @@ class MembersController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm(Members $member)
+    private function createDeleteForm(Users $member)
     {
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('members_delete', array('id' => $member->getId())))

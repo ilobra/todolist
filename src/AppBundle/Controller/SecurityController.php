@@ -20,26 +20,35 @@ class SecurityController extends Controller
      **/
     public function loginAction(Request $request)
     {
-        $user = new Users();
-
         $authenticationUtils = $this->get('security.authentication_utils');
 
-        $form = $this->createForm(LoginType::class, $user);
-        $form->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid()) {
-            return $this->redirectToRoute('homepage');
-        }
+//        $user = new Users();
+//
+//        $form = $this->createForm(LoginType::class, $user);
+//        $form->handleRequest($request);
+//
+//        if($form->isSubmitted() && $form->isValid()) {
+//            return $this->redirectToRoute('homepage');
+//        }
         // get the login error if there is one
-    $error = $authenticationUtils->getLastAuthenticationError();
+        $error = $authenticationUtils->getLastAuthenticationError();
 
-    // last username entered by the user
-    $lastUsername = $authenticationUtils->getLastUsername();
+        // last username entered by the user
+        $lastUsername = $authenticationUtils->getLastUsername();
 
         return $this->render('security/login.html.twig', array(
             'last_username' => $lastUsername,
-        'error'         => $error,
-    ));
+            'error'         => $error,
+        ));
 
+    }
+    /**
+     * @Route("/logout", name="logout")
+     * @throws \RuntimeException
+     */
+    public function logoutAction()
+    {
+        throw new \RuntimeException('This should never be called');
     }
 
 

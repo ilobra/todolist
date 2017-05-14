@@ -5,3 +5,74 @@
     font-style: italic;
     color: #868686;
 }
+.form-signin{
+    margin:  0 auto;
+    max-width: 450px;
+}
+.form-signin-heading {
+    margin-bottom: 30px;
+    text-align: center;
+    font-weight: 500;
+}
+.form-control{
+    margin-bottom: 10px;
+}
+div.box{
+    margin: auto;
+    height: 90vh;
+    width: 94%;
+    position: relative;
+}
+div.div1{
+    margin: auto;
+    float: left;
+    background-color: #dfdfdf;
+    border: 2px solid lightgray;
+    height: 100%;
+    width: 48%;
+}
+div.div2{
+    margin: auto;
+    float: right;
+    background-color: #dfdfdf;
+    border: 2px solid lightgray;
+    width: 48%;
+    height: 49%;
+    margin-bottom: 15px;
+}
+
+div.div3{
+    margin: auto;
+    float: right;
+    background-color: #dfdfdf;
+    border: 2px solid lightgray;
+    width: 48%;
+    height: 49%;
+}
+div.clear{
+    clear: both;
+    height: 1px;
+    overflow: hidden;
+    font-size: 0pt;
+    margin-top: -1px;
+}
+h2.divTitle{
+    margin: 0px;
+    background-color: lightgray;
+    padding: 10px;
+    padding-left: 20px;
+}
+p.divContent{
+    font-size: 13pt;
+    margin-top: 30px;
+    padding: 10px;
+    padding-left: 30px;
+    padding-bottom: 0px;
+}
+input.divfield{
+    font-size: 11pt;
+    width: 60%;
+    padding: 4px;
+    margin-left: 20px;
+}
+

@@ -10,19 +10,18 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 class LoginType extends AbstractType {
+
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
             ->add(
-                'username',
-                TextType::class, [
+                'username',TextType::class, [
                     'constraints' => [
                         new NotBlank()
                     ]
                 ]
             )
             ->add(
-                'password',
-                PasswordType::class, [
+                'password',PasswordType::class, [
                     'constraints' => [
                         new NotBlank()
                     ]
@@ -32,7 +31,7 @@ class LoginType extends AbstractType {
 
     public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults([
-            'data_class' => 'AppBundle\Entity\users'
+            'data_class' => Users::class,
         ]);
     }
 }

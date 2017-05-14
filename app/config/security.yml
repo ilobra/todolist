@@ -2,6 +2,9 @@
 # http://symfony.com/doc/current/security.html
 security:
 
+    role_hierarchy:
+      ROLE_ADMIN: [ROLE_USER]
+
     encoders:
 
       AppBundle\Entity\Users:
@@ -11,6 +14,12 @@ security:
     # http://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
 
     providers:
+        chain_provider:
+              chain:
+                providers:
+                  - in_memory
+                  - db_provider
+
         db_provider:
           entity:
             class: AppBundle:Users
@@ -23,12 +32,6 @@ security:
                   password: $2y$13$HMCpX20us47.PnOGJATfuuw6MDsaCPr7FrIx1pJpWvPHogTHuAUYi
                   roles: 'ROLE_ADMIN'
 
-        chain_provider:
-          chain:
-            providers:
-              - in_memory
-              - db_provider
-
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
@@ -37,13 +40,16 @@ security:
             security: false
 
         main:
-          anonymous: ~
+          pattern: ^/
           provider: chain_provider
           form_login:
               login_path: /login
               check_path: /login
               default_target_path: /home
               always_use_default_target_path: true
+              username_parameter: _username
+              password_parameter: _password
+          anonymous: ~
 
           logout:
               path:   /logout
@@ -53,6 +59,7 @@ security:
             - { path: ^/login, role: IS_AUTHENTICATED_ANONYMOUSLY}
             - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY}
             - { path: ^/home, role: "ROLE_USER"}
+
             # activate different ways to authenticate
 
             # http://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate

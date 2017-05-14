@@ -60,10 +60,10 @@ class Users implements UserInterface, \Serializable
      */
     private $email;
 
-    /**
-     * @ORM\Column(name="role", type="string", length=50, nullable=true)
-     */
-    protected $role;
+//    /**
+//     * @ORM\Column(name="role", type="string", length=50, nullable=true)
+//     */
+//    protected $role;
 
 
     /**
@@ -342,17 +342,25 @@ class Users implements UserInterface, \Serializable
 
     public function serialize()
     {
-        // TODO: Implement serialize() method.
+        return $this->serialize([
+            $this->id,
+            $this->username,
+            $this->password
+        ]);
     }
 
     public function unserialize($serialized)
     {
-        // TODO: Implement unserialize() method.
+        list(
+            $this->id,
+            $this->username,
+            $this->password
+            ) = $this->unserialize($serialized);
     }
 
     public function getRoles()
     {
-        return [$this->getRole()];
+        return [ 'ROLE_USER' ];
     }
 
     public function getSalt()
@@ -362,7 +370,7 @@ class Users implements UserInterface, \Serializable
 
     public function eraseCredentials()
     {
-        return null;
+        $this->plainPassword = null;
     }
 
 }

@@ -20,7 +20,7 @@ class SecurityController extends Controller
      **/
     public function loginAction(Request $request)
     {
-       // die("kjdhkj");
+
         $authenticationUtils = $this->get('security.authentication_utils');
 
         $user = new Users();
@@ -38,9 +38,6 @@ class SecurityController extends Controller
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        if (null !== $this->getUser()) {
-            return new RedirectResponse($this->generateUrl('/home'));
-        }
         return $this->render('security/login.html.twig', array(
             'last_username' => $lastUsername,
             'error'         => $error,
@@ -57,23 +54,5 @@ class SecurityController extends Controller
     }
 
 
-    /*public function __invoke(Request $request) {
-        $user = new users();
-        $authenticationUtils = $this->get('security.authentication_utils');
-        $form = $this->createForm(LoginType::class, $user);
-        $form->handleRequest($request);
 
-        if($form->isValid()) {
-            return $this->redirectToRoute('about page');
-        }
-
-        // get the login error if there is one
-        $error = $this->$authenticationUtils->getLastAuthenticationError();
-
-        return  $this->render(
-                'security/login.html.twig',
-                array('form' => $form->createView(),
-                    'error' => $error)
-                );
-    }*/
 }

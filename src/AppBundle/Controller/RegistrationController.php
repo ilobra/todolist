@@ -2,8 +2,6 @@
 
 namespace AppBundle\Controller;
 
-//use AppBundle\Entity\Users;
-use AppBundle\Form\MembersType;
 use AppBundle\Form\UserType;
 use AppBundle\Entity\Users;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;

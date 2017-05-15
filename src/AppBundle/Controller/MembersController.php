@@ -26,11 +26,10 @@ class MembersController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $members = $em->getRepository('AppBundle:Users')->findAll();
-        $teams = $em->getRepository('AppBundle:Teams')->findAll();
+
 
         return $this->render('members/index.html.twig', array(
             'members' => $members,
-            'teams' => $teams,
 
         ));
     }
@@ -139,4 +138,5 @@ class MembersController extends Controller
             ->getForm()
         ;
     }
+
 }

@@ -7,8 +7,8 @@
         <thead>
             <tr>
                 <th>ID</th>
+                <th>Username</th>
                 <th>Name</th>
-                <th>Team(s)</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -16,10 +16,9 @@
         {% for member in members %}
             <tr>
                 <td><a href="{{ path('members_show', { 'id': member.id }) }}">{{ member.id }}</a></td>
+                <td>{{ member.username }}</td>
                 <td>{{ member.name }}</td>
-                {% for team in teams %}
-                    <td><a href="{{ path('teams_show', { 'id' : team.id})}}"> {{ team.teamname }}</td></a>
-                {% endfor %}
+
                 <td>
                     <ul>
                         <li>

@@ -31,16 +31,17 @@ security:
           provider: db_provider
 
           form_login:
-              login_path: /login
-              check_path: /login
-              default_target_path: /home
-
+              login_path: login
+              check_path: login
+              default_target_path: homepage
+              always_use_default_target_path: true
+          anonymous: ~
           logout:
               path:   /logout
               target: /
 
     access_control:
-            - { path: ^/login, role: IS_AUTHENTICATED_ANONYMOUSLY}
+            - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY}
             - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY}
             - { path: ^/home, role: "ROLE_USER"}
             - { path: ^/members, role: "ROLE_USER"}

@@ -14,25 +14,14 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends Controller
 {
-
     /**
      * @Route("/login", name="login")
-     **/
-    public function loginAction(Request $request)
+     */
+    public function loginAction()
     {
 
         $authenticationUtils = $this->get('security.authentication_utils');
 
-        $user = new Users();
-
-        $form = $this->createForm(LoginType::class, $user);
-        $form->handleRequest($request);
-
-
-        if($form->isSubmitted() && $form->isValid()) {
-            return $this->redirectToRoute('homepage');
-        }
-        // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
 
         // last username entered by the user
@@ -42,17 +31,13 @@ class SecurityController extends Controller
             'last_username' => $lastUsername,
             'error'         => $error,
         ));
-
     }
+
     /**
-     * @Route("/logout", name="logout")
-     * @throws \RuntimeException
+     * @Route("/logout")
      */
     public function logoutAction()
     {
-        throw new \RuntimeException('This should never be called');
+        throw new \RuntimeException("This is a logout exception");
     }
-
-
-
 }

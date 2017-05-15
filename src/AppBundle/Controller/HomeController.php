@@ -16,14 +16,14 @@ class HomeController extends Controller
     public function indexAction()
     {
 
-        $repository = $this->getDoctrine()->getRepository('AppBundle:Users');
-        $user = $repository->findOneBy([
-           'id'=> '6'
-        ]);
-        dump($user);
+//        $repository = $this->getDoctrine()->getRepository('AppBundle:Users');
+//        $user = $repository->findOneBy([
+//           'id'=> '6'
+//        ]);
+//        dump($user);
 
 
-        return $this->render('homepage/homepage.html.twig',  [ 'userData' => $user ]);
+        return $this->render('homepage/homepage.html.twig');//[ 'userData' => $user ]);
 
     }
     /**

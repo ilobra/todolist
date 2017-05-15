@@ -9,28 +9,28 @@ security:
 
       AppBundle\Entity\Users:
           algorithm: bcrypt
-      Symfony\Component\Security\Core\User\User:
-          algorithm: bcrypt
+#      Symfony\Component\Security\Core\User\User:
+#          algorithm: bcrypt
     # http://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
 
     providers:
-        chain_provider:
-              chain:
-                providers:
-                  - in_memory
-                  - db_provider
+#        chain_provider:
+#              chain:
+#                providers:
+#                  - in_memory
+#                  - db_provider
 
         db_provider:
           entity:
             class: AppBundle:Users
             property: username
-
-        in_memory:
-            memory:
-              users:
-                admin:
-                  password: $2y$13$HMCpX20us47.PnOGJATfuuw6MDsaCPr7FrIx1pJpWvPHogTHuAUYi
-                  roles: 'ROLE_ADMIN'
+#
+#        in_memory:
+#            memory:
+#              users:
+#                admin:
+#                  password: $2y$13$HMCpX20us47.PnOGJATfuuw6MDsaCPr7FrIx1pJpWvPHogTHuAUYi
+#                  roles: 'ROLE_ADMIN'
 
 
     firewalls:
@@ -40,16 +40,19 @@ security:
             security: false
 
         main:
+          anonymous: ~
           pattern: ^/
-          provider: chain_provider
+          provider: db_provider
+
           form_login:
               login_path: /login
               check_path: /login
               default_target_path: /home
-              always_use_default_target_path: true
-              username_parameter: _username
-              password_parameter: _password
-          anonymous: ~
+              #always_use_default_target_path: true
+             # http_basic: ~
+#              username_parameter: _username
+#              password_parameter: _password
+
 
           logout:
               path:   /logout

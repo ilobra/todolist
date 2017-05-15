@@ -342,20 +342,24 @@ class Users implements UserInterface, \Serializable
 
     public function serialize()
     {
-        return $this->serialize([
+        return serialize(array(
             $this->id,
             $this->username,
-            $this->password
-        ]);
+            $this->password,
+            // see section on salt below
+            // $this->salt,
+        ));
     }
 
     public function unserialize($serialized)
     {
-        list(
+        list (
             $this->id,
             $this->username,
-            $this->password
-            ) = $this->unserialize($serialized);
+            $this->password,
+            // see section on salt below
+            // $this->salt
+            ) = unserialize($serialized);
     }
 
     public function getRoles()

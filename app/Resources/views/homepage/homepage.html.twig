@@ -22,37 +22,37 @@
         <div class="div1">
             <h2 class="divTitle">Profile info</h2>
 
-            <p class="divContent" >Username:</p>
-            <input type="text"
-                   id="_Username"
-                   class="divfield"
-                   name="_Username"
-                   value="{{ userData.username }}"
-                   disabled/>
+            {#<p class="divContent" >Username:</p>#}
+            {#<input type="text"#}
+                   {#id="_Username"#}
+                   {#class="divfield"#}
+                   {#name="_Username"#}
+                   {#value="{{ userData.username }}"#}
+                   {#disabled/>#}
 
-            <p class="divContent" >Name:</p>
-            <input type="text"
-                   id="_name"
-                   class="divfield"
-                   name="_name"
-                   value="{{ userData.name }}"
-                   disabled/>
+            {#<p class="divContent" >Name:</p>#}
+            {#<input type="text"#}
+                   {#id="_name"#}
+                   {#class="divfield"#}
+                   {#name="_name"#}
+                   {#value="{{ userData.name }}"#}
+                   {#disabled/>#}
 
-            <p class="divContent" >Last name:</p>
-            <input type="text"
-                   id="_lasname"
-                   class="divfield"
-                   name="_lasname"
-                   value="{{ userData.lastname }}"
-                   disabled/>
+            {#<p class="divContent" >Last name:</p>#}
+            {#<input type="text"#}
+                   {#id="_lasname"#}
+                   {#class="divfield"#}
+                   {#name="_lasname"#}
+                   {#value="{{ userData.lastname }}"#}
+                   {#disabled/>#}
 
-            <p class="divContent" >Email:</p>
-            <input type="text"
-                   id="_email"
-                   class="divfield"
-                   name="_email"
-                   value="{{ userData.email }}"
-                   disabled/>
+            {#<p class="divContent" >Email:</p>#}
+            {#<input type="text"#}
+                   {#id="_email"#}
+                   {#class="divfield"#}
+                   {#name="_email"#}
+                   {#value="{{ userData.email }}"#}
+                   {#disabled/>#}
 
             {% if app.user %}
                 <a style="position: absolute; bottom: 20px; display: block; margin-left: 20px;" role="button" class="btn btn-info btn-lg" href="{{ logout_path('main') }}">Logout</a>

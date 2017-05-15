@@ -2,8 +2,8 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\Member;
-use AppBundle\Form\MemberType;
+//use AppBundle\Entity\Users;
+use AppBundle\Form\MembersType;
 use AppBundle\Form\UserType;
 use AppBundle\Entity\Users;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -46,15 +46,15 @@ class RegistrationController extends Controller
             $em->persist($user);
             $em->flush();
 
-//            $token = new UsernamePasswordToken(
-//                $member,
-//                $password,
-//                'main',
-//                $member->getRoles()
-//            );
-//
-//            $this->get('security.token_storage')->setToken($token);
-//            $this->get('session')->set('_security_main', serialize($token));
+            $token = new UsernamePasswordToken(
+                $user,
+                $password,
+                'main',
+                $user->getRoles()
+            );
+
+            $this->get('security.token_storage')->setToken($token);
+            $this->get('session')->set('_security_main', serialize($token));
 
             $this->addFlash('success', 'Successfully registered!');
 //

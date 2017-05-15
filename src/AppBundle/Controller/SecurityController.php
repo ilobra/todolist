@@ -20,22 +20,27 @@ class SecurityController extends Controller
      **/
     public function loginAction(Request $request)
     {
+       // die("kjdhkj");
         $authenticationUtils = $this->get('security.authentication_utils');
 
-//        $user = new Users();
-//
-//        $form = $this->createForm(LoginType::class, $user);
-//        $form->handleRequest($request);
-//
-//        if($form->isSubmitted() && $form->isValid()) {
-//            return $this->redirectToRoute('homepage');
-//        }
+        $user = new Users();
+
+        $form = $this->createForm(LoginType::class, $user);
+        $form->handleRequest($request);
+
+
+        if($form->isSubmitted() && $form->isValid()) {
+            return $this->redirectToRoute('homepage');
+        }
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
 
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
+        if (null !== $this->getUser()) {
+            return new RedirectResponse($this->generateUrl('/home'));
+        }
         return $this->render('security/login.html.twig', array(
             'last_username' => $lastUsername,
             'error'         => $error,

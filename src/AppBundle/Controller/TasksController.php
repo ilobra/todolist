@@ -4,7 +4,8 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Categories;
 use AppBundle\Entity\Tasks;
-use AppBundle\Entity\Members;
+use AppBundle\Entity\Users;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
@@ -44,6 +45,8 @@ class TasksController extends Controller
     public function newAction(Request $request)
     {
         $task = new Tasks();
+        $author = $this->get('security.token_storage')->getToken()->getUser();
+        $task->setAuthor($author);
         $form = $this->createForm('AppBundle\Form\TasksType', $task);
         $form->handleRequest($request);
 
@@ -57,6 +60,7 @@ class TasksController extends Controller
 
         return $this->render('tasks/new.html.twig', array(
             'task' => $task,
+            'author' => $author,
             'form' => $form->createView(),
         ));
     }
@@ -67,14 +71,16 @@ class TasksController extends Controller
      * @Route("/{id}", name="tasks_show")
      * @Method("GET")
      */
-    public function showAction(Tasks $task, Members $memberid, Categories $catId)
+    public function showAction(Tasks $task, Users $userid, Categories $catId)
     {
         $deleteForm = $this->createDeleteForm($task);
-        $author = $this->getDoctrine()->getRepository('AppBundle:Members')->find($memberid);
+        $assignedTo = $this->getDoctrine()->getRepository('AppBundle:Users')->find($userid);
+        //$author = $this->get('security.token_storage')->getToken()->getUser();
         $category = $this->getDoctrine()->getRepository('AppBundle:Categories')->find($catId);
         return $this->render('tasks/show.html.twig', array(
             'task' => $task,
-            'author' => $author,
+            'assignedTo' => $assignedTo,
+           // 'author'=>$author,
             'category' => $category,
             'delete_form' => $deleteForm->createView(),
         ));

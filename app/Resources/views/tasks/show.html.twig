@@ -6,15 +6,15 @@
     <table>
         <tbody>
             <tr>
-                <th>Id</th>
+                <th>ID</th>
                 <td>{{ task.id }}</td>
             </tr>
             <tr>
-                <th>Taskname</th>
+                <th>Task name</th>
                 <td>{{ task.taskname }}</td>
             </tr>
             <tr>
-                <th>Taskcomment</th>
+                <th>Comment about task</th>
                 <td>{{ task.taskcomment }}</td>
             </tr>
             <tr>
@@ -26,7 +26,7 @@
                 <td>{% if task.created %}{{ task.created|date('Y-m-d H:i:s') }}{% endif %}</td>
             </tr>
             <tr>
-                <th>Dueto</th>
+                <th>Due to</th>
                 <td>{% if task.dueto %}{{ task.dueto|date('Y-m-d H:i:s') }}{% endif %}</td>
             </tr>
             <tr>
@@ -34,8 +34,8 @@
                 <td>{{ task.status }}</td>
             </tr>
             <tr>
-                <th>Author</th>
-                <td>{{ author.name }}</td>
+                <th>Assigned To</th>
+                <td>{{ assignedTo.name }}</td>
             </tr>
             <tr>
                 <th>Category</th>

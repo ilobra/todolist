@@ -30,15 +30,18 @@ class Teams
     private $teamname;
 
     /**
-     * One Team has Many UsersTeams
-     * @ORM\OneToMany(targetEntity="UsersTeams", mappedBy="team")
+     * Many Teams have Many Members
+     * @ORM\ManyToMany(targetEntity="Users", inversedBy="teams")
+     * @ORM\JoinTable(name="Users_Teams")
+     *
      */
-    private $usersteamsTeam;
+    private $members;
+
 
 
     public function __construct()
     {
-        $this->usersteamsTeam = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->members = new \Doctrine\Common\Collections\ArrayCollection();
     }
     /**
      * Get id
@@ -80,36 +83,36 @@ class Teams
     }
 
     /**
-     * Add usersteamsTeam
+     * Add members
      *
-     * @param \AppBundle\Entity\UsersTeams $usersteamsTeam
+     * @param \AppBundle\Entity\Users $members
      *
      * @return Teams
      */
-    public function addUsersteamsTeam(\AppBundle\Entity\UsersTeams $usersteamsTeam)
+    public function addMember(\AppBundle\Entity\Users $members)
     {
-        $this->usersteamsTeam[] = $usersteamsTeam;
+        $this->members[] = $members;
 
         return $this;
     }
 
     /**
-     * Remove usersteamsTeam
+     * Remove members
      *
-     * @param \AppBundle\Entity\UsersTeams $usersteamsTeam
+     * @param \AppBundle\Entity\UsersTeams $members
      */
-    public function removeUsersteamsTeam(\AppBundle\Entity\UsersTeams $usersteamsTeam)
+    public function removeMember(\AppBundle\Entity\Users $members)
     {
-        $this->usersteamsTeam->removeElement($usersteamsTeam);
+        $this->members->removeElement($members);
     }
 
     /**
-     * Get usersteamsTeam
+     * Get members
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getUsersteamsTeam()
+    public function getMembers()
     {
-        return $this->usersteamsTeam;
+        return $this->members;
     }
 }

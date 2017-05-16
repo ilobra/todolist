@@ -17,6 +17,12 @@
                 <th>Registered as</th>
                 <td>{{ user.username }}</td>
             </tr>
+        <tr>
+            <th>User's team(s)</th>
+            {#{% for team in user %}#}
+            {#<td>{{  }}</td>#}
+            {#{% endfor %}#}
+        </tr>
         </tbody>
     </table>
 
@@ -24,13 +30,6 @@
         <li>
             <a href="{{ path('members_index') }}">Back to the list</a>
         </li>
-        <li>
-            <a href="{{ path('members_edit', { 'id': member.id }) }}">Edit</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
+
     </ul>
 {% endblock %}

@@ -2,6 +2,7 @@
 
 namespace AppBundle\Form;
 
+use AppBundle\Entity\Users;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -13,7 +14,7 @@ class TasksType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('taskname')->add('taskcomment')->add('priority')->add('created')->add('dueto')->add('status')->add('category')->add('author');
+        $builder->add('taskname')->add('taskcomment')->add('priority')->add('created')->add('dueto')->add('status')->add('category')->add('assignedTo');
     }
     
     /**

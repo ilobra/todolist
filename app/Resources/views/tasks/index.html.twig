@@ -10,9 +10,11 @@
                 <th>Task name</th>
                 <th>Comment about task</th>
                 <th>Priority</th>
+                <th>Assigned to</th>
                 <th>Created</th>
                 <th>Due to</th>
                 <th>Status</th>
+                <th>Author</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -23,9 +25,11 @@
                 <td>{{ task.taskname }}</td>
                 <td>{{ task.taskcomment }}</td>
                 <td>{{ task.priority }}</td>
+                <td>{{ task.assignedTo }}</td>
                 <td>{% if task.created %}{{ task.created|date('Y-m-d H:i:s') }}{% endif %}</td>
                 <td>{% if task.dueto %}{{ task.dueto|date('Y-m-d H:i:s') }}{% endif %}</td>
                 <td>{{ task.status }}</td>
+                <td>{{ task.author }}</td>
                 <td>
                     <ul>
                         <li>

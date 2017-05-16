@@ -13,7 +13,7 @@ class TeamsType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('teamname');
+        $builder->add('teamname')->add('members');
     }
     
     /**

@@ -111,4 +111,9 @@ class Priorities
     {
         return $this->prioritytask;
     }
+
+    public function __toString()
+    {
+        return $this->priorities;
+    }
 }

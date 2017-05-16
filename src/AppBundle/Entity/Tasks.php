@@ -72,11 +72,11 @@ class Tasks
     private $category;
 
     /**
-     * Many Tasks have One Author
+     * Many Tasks have One Assigned person
      * @ORM\ManyToOne(targetEntity="Users", inversedBy="usertasks")
-     * @ORM\JoinColumn(name="authorUser_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="assigned_person", referencedColumnName="id")
      */
-    private $author;
+    private $assignedTo;
 
     /**
      * Many Tasks have One Priority
@@ -84,6 +84,13 @@ class Tasks
      * @ORM\JoinColumn(name="priority_id", referencedColumnName="id")
      */
     private $priority;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="author", type="string", length=100, nullable=true)
+     */
+    private $author;
 
     /**
      * Get id
@@ -243,13 +250,13 @@ class Tasks
     /**
      * Set author
      *
-     * @param \AppBundle\Entity\Priorities $author
+     * @param \AppBundle\Entity\Users $assignedTo
      *
      * @return Tasks
      */
-    public function setAuthor(\AppBundle\Entity\Priorities $author = null)
+    public function setAssignedTo(\AppBundle\Entity\Users $assignedTo = null)
     {
-        $this->author = $author;
+        $this->assignedTo = $assignedTo;
 
         return $this;
     }
@@ -257,11 +264,11 @@ class Tasks
     /**
      * Get author
      *
-     * @return \AppBundle\Entity\Priorities
+     * @return \AppBundle\Entity\Users
      */
-    public function getAuthor()
+    public function getAssignedTo()
     {
-        return $this->author;
+        return $this->assignedTo;
     }
 
     /**
@@ -280,5 +287,20 @@ class Tasks
         $this->priority = $priority;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getAuthor()
+    {
+        return $this->author;
+    }
 
+    /**
+     * @param mixed $author
+     */
+    public function setAuthor($author)
+    {
+        $this->author = $author;
+
+    }
 }

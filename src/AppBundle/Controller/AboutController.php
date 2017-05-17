@@ -14,13 +14,11 @@ class AboutController extends Controller
      */
     public function description()
     {
-        return new Response(
-            '<html><body>Very beginning of todo list project.</body></html>'
-        );
+        return $this->render('about/about.html.twig');
+    }
+
+   public function indexAction($name)
+    {
+        return $this->render('about/about.html.twig', array('name' => $name));
     }
 }
-   /* public function indexAction($name)
-    {
-        return $this->render('', array('name' => $name));
-    }*/
-//}

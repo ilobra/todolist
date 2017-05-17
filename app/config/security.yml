@@ -47,7 +47,7 @@ security:
             - { path: ^/members, role: "ROLE_USER"}
             - { path: ^/tasks, role: "ROLE_USER"}
             - { path: ^/teams, role: "ROLE_USER"}
-            - { path: ^/categories, role: "ROLE_USER"}
+           # - { path: ^/categories, role: "ROLE_USER"}
             # activate different ways to authenticate
 
             # http://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate

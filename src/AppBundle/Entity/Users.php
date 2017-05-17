@@ -31,8 +31,8 @@ class Users implements UserInterface, \Serializable
      *
      * @ORM\Column(name="username", type="string", length=50, unique=true, nullable=false)
      * @Assert\Length(
-     *     min="6",
-     *     minMessage="Your name must be at least 6 characters long"
+     *     min="8",
+     *     minMessage="Your name must be at least 8 characters long"
      * )
      * @Assert\NotBlank()
      */
@@ -60,16 +60,18 @@ class Users implements UserInterface, \Serializable
      */
     private $email;
 
-//    /**
-//     * @ORM\Column(name="role", type="string", length=50, nullable=true)
-//     */
-//    protected $role;
+    /**
+     * @ORM\Column(name="role", type="string", length=50, nullable=true)
+     */
+    protected $role;
 
 
     /**
+     * @Assert\NotBlank()
+     * @Assert\Length(max=4096)
      * @Assert\Regex(
      *      pattern="/(?=.*[0-9])(?=.*[a-z]).{5,}$/",
-     *      message="Password must be at least 5 characters long, have a lover case character and a digit"
+     *      message="Password mush be at least 5 characters long, have a lover case character and a digit"
      * )
      */
     private $plainPassword;
@@ -84,20 +86,20 @@ class Users implements UserInterface, \Serializable
 
     /**
      * One User has Many Tasks
-     * @ORM\OneToMany(targetEntity="Tasks", mappedBy="assignedTo")
+     * @ORM\OneToMany(targetEntity="Tasks", mappedBy="author")
      */
     private $usertasks;
 
     /**
-     * Many Users have Many Teams
-     * @ORM\ManyToMany(targetEntity="Users", mappedBy="members")
+     * One User has Many UsersTeams
+     * @ORM\OneToMany(targetEntity="UsersTeams", mappedBy="user")
      */
-    private $teams;
+    private $usersteamsUser;
 
     public function __construct()
     {
         $this->usertasks = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->teams = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->usersteamsUser = new \Doctrine\Common\Collections\ArrayCollection();
     }
     /**
      * Get id
@@ -218,6 +220,28 @@ class Users implements UserInterface, \Serializable
 
 
     /**
+     * @return mixed
+     */
+    public function getRole()
+    {
+        return $this->role;
+    }
+
+
+    /**
+     * @param mixed $role
+     */
+    public function setRole($role = null)
+    {
+        $this->role = $role;
+    }
+
+    public function __toString()
+    {
+        return $this->username;
+    }
+
+    /**
      * @return string
      */
     public function getLastname()
@@ -252,22 +276,17 @@ class Users implements UserInterface, \Serializable
     /**
      * @return mixed
      */
-    public function getTeams()
+    public function getUsersteamsUser()
     {
-        return $this->teams;
-    }
-
-    public function getUserTeams($userid)
-    {
-        return $this->teams[]=$userid;
+        return $this->usersteamsUser;
     }
 
     /**
-     * @param mixed $teams
+     * @param mixed $usersteamsUser
      */
-    public function setTeams($teams)
+    public function setUsersteamsUser($usersteamsUser)
     {
-        $this->teams = $teams;
+        $this->usersteamsUser = $usersteamsUser;
     }
 
 
@@ -298,27 +317,27 @@ class Users implements UserInterface, \Serializable
     }
 
     /**
-     * Add team
+     * Add usersteamsUser
      *
-     * @param \AppBundle\Entity\Teams $teams
+     * @param \AppBundle\Entity\UsersTeams $usersteamsUser
      *
      * @return Users
      */
-    public function addTeam(\AppBundle\Entity\Teams $teams)
+    public function addUsersteamsUser(\AppBundle\Entity\UsersTeams $usersteamsUser)
     {
-        $this->teams[] = $teams;
+        $this->usersteamsUser[] = $usersteamsUser;
 
         return $this;
     }
 
     /**
-     * Remove team
+     * Remove usersteamsUser
      *
-     * @param \AppBundle\Entity\Teams $teams
+     * @param \AppBundle\Entity\UsersTeams $usersteamsUser
      */
-    public function removeTeam(\AppBundle\Entity\Teams $teams)
+    public function removeUsersteamsUser(\AppBundle\Entity\UsersTeams $usersteamsUser)
     {
-        $this->teams->removeElement($teams);
+        $this->usersteamsUser->removeElement($usersteamsUser);
     }
 
     public function serialize()
@@ -329,7 +348,6 @@ class Users implements UserInterface, \Serializable
             $this->password
         ]);
     }
-
     public function unserialize($serialized)
     {
         list (
@@ -346,19 +364,14 @@ class Users implements UserInterface, \Serializable
 
     public function getSalt()
     {
-//        return null;
+        return null;
     }
 
     public function eraseCredentials()
     {
-//        $this->plainPassword = null;
+        return null;
     }
 
 
-
-    public function __toString()
-    {
-        return $this->username;
-    }
 
 }

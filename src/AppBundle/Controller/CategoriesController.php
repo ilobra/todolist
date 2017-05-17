@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Categories;
+use AppBundle\Entity\Tasks;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
@@ -66,7 +67,6 @@ class CategoriesController extends Controller
     public function showAction(Categories $category)
     {
         $deleteForm = $this->createDeleteForm($category);
-
         return $this->render('categories/show.html.twig', array(
             'category' => $category,
             'delete_form' => $deleteForm->createView(),

@@ -15,14 +15,14 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component
 /**
  * Task controller.
  *
- * @Route("home/tasks")
+ * @Route("home/project/tasks")
  */
 class TasksController extends Controller
 {
     /**
      * Finds and displays a teams project
      *
-     * @Route("/user={id}/project", name="teams_project")
+     * @Route("/user={id}", name="teams_project")
      * @Method("GET")
      */
     public function showAllAction(Users $userid)
@@ -44,7 +44,7 @@ class TasksController extends Controller
     /**
      * Greeting
      *
-     * @Route("/team={id}", name="tasks_greeting")
+     * @Route("/team={id}/greet", name="tasks_greeting")
      * @Method("GET")
      */
     public function greetAction(Teams $teams)
@@ -58,7 +58,7 @@ class TasksController extends Controller
     /**
      * Lists all task entities.
      *
-     * @Route("/team={id}/project", name="tasks_index")
+     * @Route("/team={id}", name="tasks_index")
      * @Method("GET")
      */
     public function indexAction(Teams $teams)
@@ -81,19 +81,19 @@ class TasksController extends Controller
     {
         $task = new Tasks();
         $author = $this->get('security.token_storage')->getToken()->getUser();
-        $teamid = $teams->getId();
 
         $task->setAuthor($author);
         $task->setTeam($teams);
 
         $form = $this->createForm('AppBundle\Form\TasksType', $task);
-
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($task);
             $em->flush();
+
+            $this->addFlash('success', 'Successfully created a new task!');
 
             return $this->redirectToRoute('tasks_show', array('team' => $teams));
         }

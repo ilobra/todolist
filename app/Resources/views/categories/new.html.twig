@@ -10,7 +10,8 @@
 
     <ul>
         <li>
-            <a href="{{ path('categories_index') }}">Back to the list</a>
+        <a href="{{ path('tasks_index', { 'id': team.id }) }}">Return to project view</a>
+
         </li>
     </ul>
 {% endblock %}

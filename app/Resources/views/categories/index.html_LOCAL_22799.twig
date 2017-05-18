@@ -40,13 +40,9 @@
         </tbody>
     </table>
 
+            <form action="{{ path('categories_new') }}">
+                <input type="submit" value="Create a new category" />
+            </form>
 
-
-
-    <ul>
-        <li>
-            <a href="{{ path('categories_new', { 'id': team.id }) }}">Create a new category</a>
-        </li>
-    </ul>
 
 {% endblock %}

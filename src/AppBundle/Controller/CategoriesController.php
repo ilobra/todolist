@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Categories;
 use AppBundle\Entity\Tasks;
+use AppBundle\Entity\Teams;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
@@ -11,36 +12,37 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component
 /**
  * Category controller.
  *
- * @Route("categories")
+ * @Route("home/project/categories")
  */
 class CategoriesController extends Controller
 {
     /**
      * Lists all category entities.
      *
-     * @Route("/", name="categories_index")
+     * @Route("/team={id}", name="categories_index")
      * @Method("GET")
      */
-    public function indexAction()
+    public function indexAction(Teams $teams)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $categories = $em->getRepository('AppBundle:Categories')->findAll();
+        $categories = $teams->getTeamcategories();
 
         return $this->render('categories/index.html.twig', array(
             'categories' => $categories,
+            'team' => $teams
         ));
     }
 
     /**
      * Creates a new category entity.
      *
-     * @Route("/new", name="categories_new")
+     * @Route("/team={id}/newcategory", name="categories_new")
      * @Method({"GET", "POST"})
      */
-    public function newAction(Request $request)
+    public function newAction(Request $request, Teams $teams)
     {
         $category = new Categories();
+        $category->setTeam($teams);
+
         $form = $this->createForm('AppBundle\Form\CategoriesType', $category);
         $form->handleRequest($request);
 
@@ -49,19 +51,22 @@ class CategoriesController extends Controller
             $em->persist($category);
             $em->flush();
 
-            return $this->redirectToRoute('categories_show', array('id' => $category->getId()));
+            $this->addFlash('success', 'Successfully created a new category!');
+
+            return $this->redirectToRoute('categories_show', array('id' => $teams->getId()));
         }
 
         return $this->render('categories/new.html.twig', array(
             'category' => $category,
             'form' => $form->createView(),
+            'team' => $teams
         ));
     }
 
     /**
      * Finds and displays a category entity.
      *
-     * @Route("/{id}", name="categories_show")
+     * @Route("/team={id}/showcategories", name="categories_show")
      * @Method("GET")
      */
     public function showAction(Categories $category)

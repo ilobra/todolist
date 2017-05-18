@@ -19,7 +19,7 @@
             </tr>
             <tr>
                 <th>Author</th>
-                <td>{{ author.username }}</td>
+                <td><a href="{{ path('members_show', {'id': author.id }) }}">{{ author.username }}</a></td>
             </tr>
             <tr>
                 <th>Priority</th>
@@ -39,14 +39,12 @@
             </tr>
             <tr>
                 <th>Category</th>
-                <td>{{ category.categoryname }}</td>
+                <td><a href="{{ path('categories_show', {'id': category.id }) }}">{{ category.categoryname }}</td>
             </tr>
         </tbody>
     </table>
 
-            <form action="{{ path('tasks_index') }}">
-                <input type="submit" value="Show all tasks" />
-            </form>
+
 
     <form action="{{ path('homepage') }}">
         <input type="submit" value="Back to profile" />

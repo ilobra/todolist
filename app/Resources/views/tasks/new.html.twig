@@ -8,7 +8,11 @@
         <input type="submit" value="Create" />
     {{ form_end(form) }}
 
-    <form action="{{ path('tasks_index') }}">
-        <input type="submit" value="Back to the lists />
-    </form>
+    <ul>
+        <li>
+        <a href="{{ path('tasks_index', { 'id': team.id }) }}">Return to project view</a>
+
+        </li>
+    </ul>
+
 {% endblock %}

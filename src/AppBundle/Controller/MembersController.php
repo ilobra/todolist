@@ -34,15 +34,11 @@ class MembersController extends Controller
      * @Route("/{id}", name="members_show")
      * @Method("GET")
      */
-    public function showAction(Users $member, Users $userid)
+    public function showAction(Users $member)
     {
-        $user = $this->getDoctrine()->getRepository('AppBundle:Users')->find($userid);
-        //$teams= $this->getDoctrine()->getRepository('AppBundle:Users')->find($userid);
         $tasks = $member->getUsertasks();
-
         return $this->render('members/show.html.twig', array(
             'member' => $member,
-            'user' => $user,
             'tasks' => $tasks,
         ));
     }

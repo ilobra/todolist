@@ -1,5 +1,41 @@
 {% extends 'base.html.twig' %}
 
+{% block head %}
+
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="{{ path('tasks_index', { 'id': team.id }) }}">Todo List</a>
+            </div>
+            <ul class="nav navbar-nav navbar-right">
+                <li ><a href="{{ path('homepageUser', { 'id': app.user.id }) }}">Profile</a> </li>
+                <li class="dropdown">
+                    <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Teams<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{ path('teams_new', { 'id': app.user.id }) }}">Create a new team</a></li>
+                        <li><a href="{{ path('teams_show_all', { 'id': app.user.id }) }}">My teams</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="{{ path('teams_index')}}">List of all teams</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tasks<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li class="active"><a href="{{ path('tasks_index', { 'id': team.id }) }}">Return to project view</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="{{ path('categories_index', { 'id': team.id }) }}">Catagories</a></li>
+                        <li><a href="{{ path('tasks_new', { 'id': team.id }) }}">Create a new task</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="">Most recent tasks</a></li>
+                        <li><a href="{{ path('members_show', { 'id': app.user.id }) }}">My tasks</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+{% endblock %}
+
 {% block body %}
     <h1>Tasks list</h1>
 

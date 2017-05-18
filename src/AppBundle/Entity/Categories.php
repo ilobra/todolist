@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints\Date;
 
 /**
  * Categories
@@ -34,6 +35,13 @@ class Categories
      * @ORM\Column(name="created", type="date")
      */
     private $created;
+
+    /**
+    * Many Categories have One Team
+    * @ORM\ManyToOne(targetEntity="Teams", inversedBy="teamcategories")
+    * @ORM\JoinColumn(name="team_id", referencedColumnName="id")
+    */
+    private $team;
 
     /**
      * One Category has Many Tasks.
@@ -141,5 +149,29 @@ class Categories
     public function __toString()
     {
         return $this->categoryname;
+    }
+
+    /**
+     * Set team
+     *
+     * @param \AppBundle\Entity\Teams $team
+     *
+     * @return Categories
+     */
+    public function setTeam(\AppBundle\Entity\Teams $team = null)
+    {
+        $this->team = $team;
+
+        return $this;
+    }
+
+    /**
+     * Get team
+     *
+     * @return \AppBundle\Entity\Teams
+     */
+    public function getTeam()
+    {
+        return $this->team;
     }
 }

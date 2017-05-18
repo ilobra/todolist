@@ -35,10 +35,24 @@ class Teams
      */
     private $usersteamsTeam;
 
+    /**
+     * One Team has Many Tasks
+     * @ORM\OneToMany(targetEntity="Tasks", mappedBy="team")
+     */
+    private $teamtasks;
+
+    /**
+     * One Team has Many Tasks
+     * @ORM\OneToMany(targetEntity="Categories", mappedBy="team")
+     */
+    private $teamcategories;
+
 
     public function __construct()
     {
         $this->usersteamsTeam = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->teamtasks = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->teamcategories = new \Doctrine\Common\Collections\ArrayCollection();
     }
     /**
      * Get id
@@ -111,5 +125,75 @@ class Teams
     public function getUsersteamsTeam()
     {
         return $this->usersteamsTeam;
+    }
+
+
+
+    /**
+     * Add teamtask
+     *
+     * @param \AppBundle\Entity\Tasks $teamtask
+     *
+     * @return Teams
+     */
+    public function addTeamtask(\AppBundle\Entity\Tasks $teamtask)
+    {
+        $this->teamtasks[] = $teamtask;
+
+        return $this;
+    }
+
+    /**
+     * Remove teamtask
+     *
+     * @param \AppBundle\Entity\Tasks $teamtask
+     */
+    public function removeTeamtask(\AppBundle\Entity\Tasks $teamtask)
+    {
+        $this->teamtasks->removeElement($teamtask);
+    }
+
+    /**
+     * Get teamtasks
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTeamtasks()
+    {
+        return $this->teamtasks;
+    }
+
+    /**
+     * Add teamcategory
+     *
+     * @param \AppBundle\Entity\Categories $teamcategory
+     *
+     * @return Teams
+     */
+    public function addTeamcategory(\AppBundle\Entity\Categories $teamcategory)
+    {
+        $this->teamcategories[] = $teamcategory;
+
+        return $this;
+    }
+
+    /**
+     * Remove teamcategory
+     *
+     * @param \AppBundle\Entity\Categories $teamcategory
+     */
+    public function removeTeamcategory(\AppBundle\Entity\Categories $teamcategory)
+    {
+        $this->teamcategories->removeElement($teamcategory);
+    }
+
+    /**
+     * Get teamcategories
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTeamcategories()
+    {
+        return $this->teamcategories;
     }
 }

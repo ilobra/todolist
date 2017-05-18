@@ -31,8 +31,8 @@ class Users implements UserInterface, \Serializable
      *
      * @ORM\Column(name="username", type="string", length=50, unique=true, nullable=false)
      * @Assert\Length(
-     *     min="8",
-     *     minMessage="Your name must be at least 8 characters long"
+     *     min="6",
+     *     minMessage="Your name must be at least 6 characters long"
      * )
      * @Assert\NotBlank()
      */
@@ -60,15 +60,13 @@ class Users implements UserInterface, \Serializable
      */
     private $email;
 
-    /**
-     * @ORM\Column(name="role", type="string", length=50, nullable=true)
-     */
-    protected $role;
+//    /**
+//     * @ORM\Column(name="role", type="string", length=50, nullable=true)
+//     */
+//    protected $role;
 
 
     /**
-     * @Assert\NotBlank()
-     * @Assert\Length(max=4096)
      * @Assert\Regex(
      *      pattern="/(?=.*[0-9])(?=.*[a-z]).{5,}$/",
      *      message="Password mush be at least 5 characters long, have a lover case character and a digit"
@@ -101,6 +99,10 @@ class Users implements UserInterface, \Serializable
         $this->usertasks = new \Doctrine\Common\Collections\ArrayCollection();
         $this->usersteamsUser = new \Doctrine\Common\Collections\ArrayCollection();
     }
+
+//    public function __toString() {
+//        return $this->(int)id;
+//    }
     /**
      * Get id
      *
@@ -220,28 +222,6 @@ class Users implements UserInterface, \Serializable
 
 
     /**
-     * @return mixed
-     */
-    public function getRole()
-    {
-        return $this->role;
-    }
-
-
-    /**
-     * @param mixed $role
-     */
-    public function setRole($role = null)
-    {
-        $this->role = $role;
-    }
-
-    public function __toString()
-    {
-        return $this->username;
-    }
-
-    /**
      * @return string
      */
     public function getLastname()
@@ -348,6 +328,7 @@ class Users implements UserInterface, \Serializable
             $this->password
         ]);
     }
+
     public function unserialize($serialized)
     {
         list (
@@ -364,14 +345,12 @@ class Users implements UserInterface, \Serializable
 
     public function getSalt()
     {
-        return null;
+//        return null;
     }
 
     public function eraseCredentials()
     {
-        return null;
+//        $this->plainPassword = null;
     }
-
-
 
 }

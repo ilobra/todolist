@@ -17,12 +17,42 @@
 .form-control{
     margin-bottom: 10px;
 }
+div.boxOne{
+    margin: auto;
+    height: 85px;
+    width: 96%;
+}
+div.boxHalf{
+    margin: auto;
+    height: 50vh;
+    width: 96%;
+}
+div.boxFullWindow{
+    margin: auto;
+    height: 70vh;
+    width: 96%;
+}
+div.divFullWindow{
+    margin: auto;
+    background-color: #dfdfdf;
+    border: 2px solid lightgray;
+    height: 100%;
+    width: 100%;
+    margin-bottom: 25px;
+}
+div.overflowFullWindow{
+    width: auto;
+    height: 100%;
+    overflow: scroll;
+}
 div.box{
     margin: auto;
     height: 90vh;
     width: 94%;
     position: relative;
+    margin-bottom: 40px;
 }
+
 div.div1{
     margin: auto;
     float: left;
@@ -39,6 +69,12 @@ div.div2{
     width: 48%;
     height: 49%;
     margin-bottom: 15px;
+    /*overflow: scroll;*/
+}
+div.divoverflow{
+    width: auto;
+    height: 88%;
+    overflow: scroll;
 }
 
 div.div3{
@@ -75,4 +111,93 @@ input.divfield{
     padding: 4px;
     margin-left: 20px;
 }
+td.tablecontent{
+    border-bottom: 2px solid lightgray;
+    padding: 8px;
+    font-size: 13pt;
+    width: 70%;
+    text-align: center;
+}
+td.tablecontent2{
+    width: 20%;
+    text-align: center;
+    border-bottom: 2px solid lightgray;
+}
+td.tablecontent3{
+    width: 25%;
+    text-align: center;
+    border-bottom: 2px solid lightgray;
+}
+th.tablecontent{
+    border-bottom: 3px solid lightgray;
+    padding: 8px;
+    font-style: italic;
+    font-size: 14pt;
+    width: 70%;
+    text-align: center;
 
+}
+th.tablecontent2{
+    width: 20%;
+    font-size: 14pt;
+    font-style: italic;
+    text-align: center;
+    border-bottom: 3px solid lightgray;
+}
+th.tablecontent3{
+    width: 25%;
+    font-size: 14pt;
+    font-style: italic;
+    text-align: center;
+    border-bottom: 3px solid lightgray;
+}
+
+th.MemberDisplay{
+    border-bottom: 3px solid lightgray;
+    padding: 8px;
+    font-style: italic;
+    font-size: 14pt;
+    width: 40%;
+    text-align: center;
+}
+th.MemberDisplay2{
+    width: 60%;
+    font-size: 14pt;
+    font-style: italic;
+    text-align: center;
+    border-bottom: 3px solid lightgray;
+}
+td.MemberDisplay{
+    border-bottom: 2px solid lightgray;
+    padding: 8px;
+    font-size: 13pt;
+    width: 40%;
+    text-align: center;
+}
+td.MemberDisplay2{
+    width: 60%;
+    text-align: center;
+    border-bottom: 2px solid lightgray;
+}
+
+tr.tablecontent{
+    border-bottom: 2px solid lightgray;
+
+}
+p.noteams{
+    text-align: center;
+    position: relative;
+    top: 35%;
+    font-size: 19pt;
+    font-style: italic;
+    color: darkgrey;
+}
+table{
+    margin: 0px;
+    width: 100%;
+}
+a.teamButton
+{
+    margin: 20px;
+    margin-left: 30px;
+}

@@ -5,11 +5,20 @@
     <nav class="navbar navbar-inverse">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a class="navbar-brand" href="/">Todo List</a>
+                <a class="navbar-brand" href="{{ path('homepageUser', { 'id': app.user.id }) }}">Todo List</a>
             </div>
             <ul class="nav navbar-nav navbar-right">
-                <li class="active"><a href="\home"> Profile</a> </li>
-                <li><a href="">Teams</a></li>
+                <li class="active"><a href="{{ path('homepageUser', { 'id': app.user.id }) }}">Profile</a> </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Teams <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{ path('teams_new', { 'id': app.user.id }) }}">Create a new team</a></li>
+                        <li><a href="{{ path('teams_show_all', { 'id': app.user.id }) }}">My teams</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="{{ path('teams_index')}}">List of all teams</a></li>
+                    </ul>
+                </li>
+
             </ul>
         </div>
     </nav>
@@ -56,13 +65,41 @@
 
             {% if app.user %}
                 <a style="position: absolute; bottom: 20px; display: block; margin-left: 20px;" role="button" class="btn btn-info btn-lg" href="{{ logout_path('main') }}">Logout</a>
-            {% else %}
-                {#{{ form_login('main') }}#}
             {% endif %}
         </div>
-        <div class="div2">
-            <h2 class="divTitle">Your teams</h2>
+        <div class="div2 ">
+            <h2 class="divTitle">My teams</h2>
+
+            {% if usersteams is empty %}
+                <p class="noteams">You currently have no teams</p>
+
+            {% else %}
+                <div class="divoverflow">
+                    <table>
+                        <thead>
+                        <tr class="tablecontent">
+                            <th class="tablecontent">Team name</th>
+                            <th class="tablecontent2">Detail</th>
+                        <tbody>
+
+                        {% for team in usersteams %}
+
+                            <tr>
+                                <td class="tablecontent">{{ team.teamname }}</td>
+                                <td class="tablecontent2">
+                                    <a class="btn btn-info btn-sm" href="{{ path('teams_show_one', { 'id' : team.uit}) }}">info</a>
+                                </td>
+                            </tr>
+
+                        {% endfor %}
+
+                        </tbody>
+                    </table>
+                </div>
+
+            {% endif %}
         </div>
+
         <div class="div3">
             <h2 class="divTitle">Recent tasks</h2>
         </div>

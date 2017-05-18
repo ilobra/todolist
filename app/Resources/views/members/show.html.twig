@@ -6,16 +6,27 @@
     <table>
         <tbody>
             <tr>
-                <th>Id</th>
+                <th>ID</th>
                 <td>{{ member.id }}</td>
             </tr>
-            <tr>
+           {% if (member.name) is not empty %} <tr>
                 <th>Name</th>
                 <td>{{ member.name }}</td>
             </tr>
+            {% endif %}
+            {% if member.lastname is not empty %}
+            <tr>
+                <th>Lastname</th>
+                <td>{{ member.lastname }}</td>
+            </tr>
+            {% endif %}
             <tr>
                 <th>Registered as</th>
-                <td>{{ user.username }}</td>
+                <td>{{ member.username }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ member.email }}</td>
             </tr>
         <tr>
             <th>User's tasks</th>

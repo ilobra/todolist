@@ -14,7 +14,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component
 /**
  * Task controller.
  *
- * @Route("/home/tasks")
+ * @Route("tasks")
  */
 class TasksController extends Controller
 {
@@ -29,6 +29,7 @@ class TasksController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $tasks = $em->getRepository('AppBundle:Tasks')->findAll();
+
         return $this->render('tasks/index.html.twig', array(
             'tasks' => $tasks,
 
@@ -73,12 +74,10 @@ class TasksController extends Controller
     public function showAction(Tasks $task)
     {
         $deleteForm = $this->createDeleteForm($task);
-
         $author = $task->getAuthor();
-        $category =$task->getCategory();;
+        $category =$task->getCategory();
         return $this->render('tasks/show.html.twig', array(
             'task' => $task,
-            //'assignedTo' => $assignedTo,
             'author'=>$author,
             'category' => $category,
             'delete_form' => $deleteForm->createView(),

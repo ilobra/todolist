@@ -26,13 +26,10 @@ class HomeController extends Controller
      */
     public function userHomepage(Users $userid)
     {
-        $em=$this->getDoctrine()->getManager();
         $id = $userid->getId();
 
         $connection =$this->get('database_connection');
-      //  $user = $em->createQuery('SELECT u.username, u.name, u.lastname, u.email FROM AppBundle/Entity/Users as u WHERE u.id = ?1')->setParameters(1,$id)->getResult();
-       // $user=$connection->createQueryBuilder()->select('u.username', 'u.name', 'u.lastname', 'u.email')->from('users', 'u')->where('u.id = ?1')->setParameter(1, '$id');
-                $user = $connection->fetchAll(
+        $user = $connection->fetchAll(
             'SELECT u.username, u.name, u.lastname, u.email
               FROM users as u
               WHERE u.id = ?

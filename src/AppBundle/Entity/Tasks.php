@@ -84,7 +84,6 @@ class Tasks
      * @ORM\JoinColumn(name="priority_id", referencedColumnName="id")
      */
     private $priority;
-
     /**
      * Get id
      *

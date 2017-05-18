@@ -37,6 +37,13 @@ class Categories
     private $created;
 
     /**
+    * Many Categories have One Team
+    * @ORM\ManyToOne(targetEntity="Teams", inversedBy="teamcategories")
+    * @ORM\JoinColumn(name="team_id", referencedColumnName="id")
+    */
+    private $team;
+
+    /**
      * One Category has Many Tasks.
      * @ORM\OneToMany(targetEntity="Tasks", mappedBy="category")
      */
@@ -142,5 +149,29 @@ class Categories
     public function __toString()
     {
         return $this->categoryname;
+    }
+
+    /**
+     * Set team
+     *
+     * @param \AppBundle\Entity\Teams $team
+     *
+     * @return Categories
+     */
+    public function setTeam(\AppBundle\Entity\Teams $team = null)
+    {
+        $this->team = $team;
+
+        return $this;
+    }
+
+    /**
+     * Get team
+     *
+     * @return \AppBundle\Entity\Teams
+     */
+    public function getTeam()
+    {
+        return $this->team;
     }
 }

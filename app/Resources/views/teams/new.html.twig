@@ -18,7 +18,7 @@
                         <li><a href="{{ path('teams_index')}}">List of all teams</a></li>
                     </ul>
                 </li>
-
+                <li><a href="{{ path('teams_project', { 'id': app.user.id }) }}">Tasks</a> </li>
             </ul>
         </div>
     </nav>

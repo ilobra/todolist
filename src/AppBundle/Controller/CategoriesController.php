@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Categories;
 use AppBundle\Entity\Tasks;
+use AppBundle\Entity\Teams;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
@@ -11,24 +12,23 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component
 /**
  * Category controller.
  *
- * @Route("categories")
+ * @Route("home/categories")
  */
 class CategoriesController extends Controller
 {
     /**
      * Lists all category entities.
      *
-     * @Route("/", name="categories_index")
+     * @Route("/team={id}/project/categories", name="categories_index")
      * @Method("GET")
      */
-    public function indexAction()
+    public function indexAction(Teams $teams)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $categories = $em->getRepository('AppBundle:Categories')->findAll();
+        $categories = $teams->getTeamcategories();
 
         return $this->render('categories/index.html.twig', array(
             'categories' => $categories,
+            'team' => $teams
         ));
     }
 

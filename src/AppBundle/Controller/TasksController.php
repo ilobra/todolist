@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Categories;
 use AppBundle\Entity\Tasks;
+use AppBundle\Entity\Teams;
 use AppBundle\Entity\Users;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -14,40 +15,79 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component
 /**
  * Task controller.
  *
- * @Route("tasks")
+ * @Route("home/tasks")
  */
 class TasksController extends Controller
 {
     /**
-     * Lists all task entities.
+     * Finds and displays a teams project
      *
-     * @Route("/", name="tasks_index")
+     * @Route("/user={id}/project", name="teams_project")
      * @Method("GET")
      */
-    public function indexAction()
+    public function showAllAction(Users $userid)
     {
-        $em = $this->getDoctrine()->getManager();
+        $id = $userid->getId();
+        $connection =$this->get('database_connection');
+        $userteams = $connection->fetchAll(
+            'SELECT t.teamname, t.id, ut.id as uit
+              FROM usersteams as ut, teams as t
+              WHERE ut.teams_id = t.id
+              AND ut.user_id = ?
+              Order BY t.id DESC ', [$id]
+        );
+        dump($userteams);
+        return $this->render('tasks/chooseProject.html.twig', array(
+            'userteams' => $userteams
+        ));
+    }
+    /**
+     * Greeting
+     *
+     * @Route("/team={id}", name="tasks_greeting")
+     * @Method("GET")
+     */
+    public function greetAction(Teams $teams)
+    {
+        $teamname = $teams->getTeamname();
+        $this->addFlash('info', 'Welcome to "'.$teamname.'" teams project!');
 
-        $tasks = $em->getRepository('AppBundle:Tasks')->findAll();
+        return $this->redirectToRoute('tasks_index', [ 'id' => $teams->getId()]);
+    }
+
+    /**
+     * Lists all task entities.
+     *
+     * @Route("/team={id}/project", name="tasks_index")
+     * @Method("GET")
+     */
+    public function indexAction(Teams $teams)
+    {
+        $tasks = $teams->getTeamtasks();
 
         return $this->render('tasks/index.html.twig', array(
             'tasks' => $tasks,
-
+            'team' => $teams
         ));
     }
 
     /**
      * Creates a new task entity.
      *
-     * @Route("/new", name="tasks_new")
+     * @Route("/team={id}/newtask", name="tasks_new")
      * @Method({"GET", "POST"})
      */
-    public function newAction(Request $request)
+    public function newAction(Request $request, Teams $teams)
     {
         $task = new Tasks();
         $author = $this->get('security.token_storage')->getToken()->getUser();
+        $teamid = $teams->getId();
+
         $task->setAuthor($author);
+        $task->setTeam($teams);
+
         $form = $this->createForm('AppBundle\Form\TasksType', $task);
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -55,12 +95,13 @@ class TasksController extends Controller
             $em->persist($task);
             $em->flush();
 
-            return $this->redirectToRoute('tasks_show', array('id' => $task->getId()));
+            return $this->redirectToRoute('tasks_show', array('team' => $teams));
         }
 
         return $this->render('tasks/new.html.twig', array(
             'task' => $task,
             'author' => $author,
+            'team' => $teams,
             'form' => $form->createView(),
         ));
     }
@@ -108,6 +149,7 @@ class TasksController extends Controller
             'delete_form' => $deleteForm->createView(),
         ));
     }
+
 
     /**
      * Deletes a task entity.

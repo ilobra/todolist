@@ -84,6 +84,13 @@ class Tasks
      * @ORM\JoinColumn(name="priority_id", referencedColumnName="id")
      */
     private $priority;
+
+    /**
+     * Many Tasks have One Team
+     * @ORM\ManyToOne(targetEntity="Teams", inversedBy="teamtasks")
+     * @ORM\JoinColumn(name="team_id", referencedColumnName="id")
+     */
+    private $team;
     /**
      * Get id
      *
@@ -277,5 +284,29 @@ class Tasks
     public function setPriority($priority)
     {
         $this->priority = $priority;
+    }
+
+    /**
+     * Set team
+     *
+     * @param \AppBundle\Entity\Teams $team
+     *
+     * @return Tasks
+     */
+    public function setTeam(\AppBundle\Entity\Teams $team = null)
+    {
+        $this->team = $team;
+
+        return $this;
+    }
+
+    /**
+     * Get team
+     *
+     * @return \AppBundle\Entity\Teams
+     */
+    public function getTeam()
+    {
+        return $this->team;
     }
 }

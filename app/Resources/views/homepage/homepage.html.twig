@@ -10,15 +10,16 @@
             <ul class="nav navbar-nav navbar-right">
                 <li class="active"><a href="{{ path('homepageUser', { 'id': app.user.id }) }}">Profile</a> </li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Teams <span class="caret"></span></a>
+                    <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Teams <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="{{ path('teams_new', { 'id': app.user.id }) }}">Create a new team</a></li>
                         <li><a href="{{ path('teams_show_all', { 'id': app.user.id }) }}">My teams</a></li>
                         <li role="separator" class="divider"></li>
                         <li><a href="{{ path('teams_index')}}">List of all teams</a></li>
                     </ul>
-                </li>
 
+                </li>
+                <li><a href="{{ path('teams_project', { 'id': app.user.id }) }}">Tasks</a> </li>
             </ul>
         </div>
     </nav>
@@ -135,7 +136,5 @@
         </div>
         <div class="clear"></div>
     </div>
-
-
 
 {% endblock %}

@@ -14,9 +14,10 @@ class TasksType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('taskname')->add('taskcomment')->add('priority')->add('created')->add('dueto')->add('status')->add('category');
+
+        $builder->add('taskname')->add('taskcomment')->add('priority')->add('dueto')->add('status')->add('category');
     }
-    
+    public function __construct() { $this->created = new \DateTime(); }
     /**
      * {@inheritdoc}
      */

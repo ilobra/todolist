@@ -7,10 +7,8 @@
         {{ form_widget(form) }}
         <input type="submit" value="Create" />
     {{ form_end(form) }}
+            <form action="{{ path('categories_index') }}">
+                <input type="submit" value="Back to the list" />
+            </form>
 
-    <ul>
-        <li>
-            <a href="{{ path('categories_index') }}">Back to the list</a>
-        </li>
-    </ul>
 {% endblock %}

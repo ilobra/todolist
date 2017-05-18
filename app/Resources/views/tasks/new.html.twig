@@ -8,9 +8,7 @@
         <input type="submit" value="Create" />
     {{ form_end(form) }}
 
-    <ul>
-        <li>
-            <a href="{{ path('tasks_index') }}">Back to the list</a>
-        </li>
-    </ul>
+    <form action="{{ path('tasks_index') }}">
+        <input type="submit" value="Back to the lists />
+    </form>
 {% endblock %}

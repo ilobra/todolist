@@ -58,8 +58,8 @@ class Tasks
     /**
      * @var string
      *
-     * @ORM\Column(name="status", type="string", length=100, nullable=false)
-     * @Assert\NotBlank()
+     * @ORM\ManyToOne(targetEntity="status", inversedBy="statustasks")
+     *  @ORM\JoinColumn(name="status_id", referencedColumnName="id")
      */
     private $status;
 
@@ -192,29 +192,7 @@ class Tasks
         return $this->dueto;
     }
 
-    /**
-     * Set status
-     *
-     * @param string $status
-     *
-     * @return Tasks
-     */
-    public function setStatus($status)
-    {
-        $this->status = $status;
 
-        return $this;
-    }
-
-    /**
-     * Get status
-     *
-     * @return string
-     */
-    public function getStatus()
-    {
-        return $this->status;
-    }
 
     /**
      * Set category
@@ -278,5 +256,26 @@ class Tasks
     public function setPriority($priority)
     {
         $this->priority = $priority;
+    }
+    /**
+     * Set status
+     *
+     * @param string $status
+     *
+     * @return Tasks
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+    }
+
+    /**
+     * Get status
+     *
+     * @return string
+     */
+    public function getStatus()
+    {
+        return $this->status;
     }
 }

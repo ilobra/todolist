@@ -44,20 +44,20 @@
         </tbody>
     </table>
 
-    <ul>
-        <li>
-            <a href="{{ path('tasks_index') }}">Show all tasks</a>
-        </li>
-        <li>
-            <a href="{{ path('homepage') }}">Back to my profile</a>
-        </li>
-        <li>
-            <a href="{{ path('tasks_edit', { 'id': task.id }) }}">Edit</a>
-        </li>
-        <li>
+            <form action="{{ path('tasks_index') }}">
+                <input type="submit" value="Show all tasks" />
+            </form>
+
+    <form action="{{ path('homepage') }}">
+        <input type="submit" value="Back to profile" />
+    </form>
+
+    <form action="{{ path('tasks_edit', { 'id': task.id }) }}">
+        <input type="submit" value="Edit" />
+    </form>
+
             {{ form_start(delete_form) }}
                 <input type="submit" value="Delete">
             {{ form_end(delete_form) }}
-        </li>
-    </ul>
+
 {% endblock %}

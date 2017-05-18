@@ -31,23 +31,21 @@
                 <td>{{ task.status }}</td>
                 <td>{{ task.category }}</td>
                 <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('tasks_show', { 'id': task.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('tasks_edit', { 'id': task.id }) }}">edit</a>
-                        </li>
-                    </ul>
+
+                    <form action="{{ path('tasks_show', { 'id': task.id }) }}">
+                        <input type="submit" value="Show" />
+                    </form>
+                            <form action="{{ path('tasks_edit', { 'id': task.id }) }}">
+                                <input type="submit" value="Edit" />
+                            </form>
                 </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <ul>
-        <li>
-            <a href="{{ path('tasks_new') }}">Create a new task</a>
-        </li>
-    </ul>
+            <form action="{{ path('tasks_new') }}">
+                <input type="submit" value="Create a new task" />
+            </form>
+
 {% endblock %}

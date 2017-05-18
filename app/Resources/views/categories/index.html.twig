@@ -1,9 +1,6 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Categories list</h1>
-
-
     <head><meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -28,29 +25,24 @@
                 <td>{{ category.categoryname }}</td>
                 <td>{% if category.created %}{{ category.created|date('Y-m-d') }}{% endif %}</td>
                 <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('categories_show', { 'id': category.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('categories_edit', { 'id': category.id }) }}">edit</a>
-                        </li>
-                    </ul>
+
+                            <form action="{{ path('categories_show', { 'id': category.id }) }}">
+                                <input type="submit" value="Show" />
+                            </form>
+
+                    <form action="{{ path('categories_edit', { 'id': category.id }) }}">
+                        <input type="submit" value="Edit" />
+                    </form>
+
                 </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <ul>
-        <li>
-            <a href="{{ path('categories_new') }}">Create a new category</a>
-        </li>
-    </ul>
+            <form action="{{ path('categories_new') }}">
+                <input type="submit" value="Create a new category" />
+            </form>
 
-    <ul>
-        <li>
-            <a href="{{ path('categories_new') }}">Create a new category</a>
-        </li>
-    </ul>
+
 {% endblock %}

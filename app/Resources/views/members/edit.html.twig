@@ -7,10 +7,8 @@
     {{ form_widget(edit_form) }}
     <input type="submit" value="Edit" />
     {{ form_end(edit_form) }}
+            <form action="{{ path('homepage') }}">
+                <input type="submit" value="Back to the homepage" />
+            </form>
 
-    <ul>
-        <li>
-            <a href="{{ path('homepage') }}">Back to the homepage</a>
-        </li>
-    </ul>
 {% endblock %}

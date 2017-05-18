@@ -13,7 +13,6 @@
             <tr>
                 <th>Id</th>
                 <td>{{ member.id }}</td>
-            </tr>
             <tr>
                 <th>Name</th>
                 <td>{{ member.name }}</td>
@@ -32,9 +31,8 @@
     </table>
 
     <ul>
-        <li>
-            <a href="{{ path('homepage') }}">Back to the homepage</a>
-        </li>
+            <form action="{{ path('homepage') }}}">
+                <input type="submit" value="Back to the homepage" />
+            </form>
 
-    </ul>
 {% endblock %}

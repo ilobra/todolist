@@ -8,14 +8,12 @@
         <input type="submit" value="Edit" />
     {{ form_end(edit_form) }}
 
-    <ul>
-        <li>
-            <a href="{{ path('tasks_index') }}">Back to the list</a>
-        </li>
-        <li>
+            <form action="{{ path('tasks_index') }}">
+                <input type="submit" value="Back to list" />
+            </form>
+
             {{ form_start(delete_form) }}
                 <input type="submit" value="Delete">
             {{ form_end(delete_form) }}
-        </li>
-    </ul>
+
 {% endblock %}

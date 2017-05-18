@@ -353,4 +353,8 @@ class Users implements UserInterface, \Serializable
 //        $this->plainPassword = null;
     }
 
+    public function __toString()
+    {
+        return $this->username;
+    }
 }

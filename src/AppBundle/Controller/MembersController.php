@@ -9,24 +9,24 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component
 /**
  * Member controller.
  *
- * @Route("members")
+ * @Route("/home/members")
  */
 class MembersController extends Controller
 {
-    /**
-     * Lists all member entities.
-     *
-     * @Route("/", name="members_index")
-     * @Method("GET")
-     */
-    public function indexAction()
-    {
-        $em = $this->getDoctrine()->getManager();
-        $members = $em->getRepository('AppBundle:Users')->findAll();
-        return $this->render('members/index.html.twig', array(
-            'members' => $members,
-        ));
-    }
+//    /**
+//     * Lists all member entities.
+//     *
+//     * @Route("/", name="members_index")
+//     * @Method("GET")
+//     */
+//    public function indexAction()
+//    {
+//        $em = $this->getDoctrine()->getManager();
+//        $members = $em->getRepository('AppBundle:Users')->findAll();
+//        return $this->render('members/index.html.twig', array(
+//            'members' => $members,
+//        ));
+//    }
 
     /**
      * Finds and displays a member entity.
@@ -34,16 +34,38 @@ class MembersController extends Controller
      * @Route("/{id}", name="members_show")
      * @Method("GET")
      */
-    public function showAction(Users $member, Users $userid  )
+    public function showAction(Users $member, Users $userid)
     {
-        $user=$this->getDoctrine()->getRepository('AppBundle:Users')->find($userid);
+        $user = $this->getDoctrine()->getRepository('AppBundle:Users')->find($userid);
         //$teams= $this->getDoctrine()->getRepository('AppBundle:Users')->find($userid);
-
+        $tasks = $member->getUsertasks();
 
         return $this->render('members/show.html.twig', array(
             'member' => $member,
             'user' => $user,
-            //'teams' => $teams,
+            'tasks' => $tasks,
+        ));
+    }
+
+    /**
+     * Displays a form to edit an existing member entity.
+     *
+     * @Route("/{id}/edit", name="members_edit")
+     * @Method({"GET", "POST"})
+     */
+    public function editAction(Request $request, Users $member)
+    {
+
+        $editForm = $this->createForm('AppBundle\Form\MembersType', $member);
+        $editForm->handleRequest($request);
+        if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+            return $this->redirectToRoute('members_edit', array('id' => $member->getId()));
+        }
+        return $this->render('members/edit.html.twig', array(
+            'member' => $member,
+            'edit_form' => $editForm->createView(),
+
         ));
     }
 }

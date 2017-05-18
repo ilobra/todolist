@@ -18,17 +18,17 @@
                 <td>{{ user.username }}</td>
             </tr>
         <tr>
-            <th>User's team(s)</th>
-            {#{% for team in user %}#}
-            {#<td>{{  }}</td>#}
-            {#{% endfor %}#}
+            <th>User's tasks</th>
+            {% for task in tasks %}
+            <td>{{ task.taskname }}</td>
+            {% endfor %}
         </tr>
         </tbody>
     </table>
 
     <ul>
         <li>
-            <a href="{{ path('members_index') }}">Back to the list</a>
+            <a href="{{ path('homepage') }}">Back to the homepage</a>
         </li>
 
     </ul>

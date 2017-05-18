@@ -30,13 +30,14 @@
     <div class="box">
         <div class="div1">
             <h2 class="divTitle">Profile info</h2>
+    {% for usr in user %}
 
             <p class="divContent" >Username:</p>
             <input type="text"
                    id="_Username"
                    class="divfield"
                    name="_Username"
-                   value="{{ app.user.username }}"
+                   value="{{ usr.username }}"
                    disabled/>
 
             <p class="divContent" >Name:</p>
@@ -44,7 +45,7 @@
                    id="_name"
                    class="divfield"
                    name="_name"
-                   value="{{ app.user.name }}"
+                   value="{{ usr.name }}"
                    disabled/>
 
             <p class="divContent" >Last name:</p>
@@ -52,7 +53,7 @@
                    id="_lasname"
                    class="divfield"
                    name="_lasname"
-                   value="{{ app.user.lastname }}"
+                   value="{{ usr.lastname }}"
                    disabled/>
 
             <p class="divContent" >Email:</p>
@@ -60,9 +61,10 @@
                    id="_email"
                    class="divfield"
                    name="_email"
-                   value="{{ app.user.email }}"
+                   value="{{ usr.email }}"
                    disabled/>
-
+        {% endfor %}
+           <p><a style="position: absolute; bottom: 80px; display: block; margin-left: 20px;" role="button" class="btn btn-info btn-lg" href="{{ path('members_edit', {'id': app.user.id}) }}">Edit profile info</a></p>
             {% if app.user %}
                 <a style="position: absolute; bottom: 20px; display: block; margin-left: 20px;" role="button" class="btn btn-info btn-lg" href="{{ logout_path('main') }}">Logout</a>
             {% endif %}
@@ -102,6 +104,34 @@
 
         <div class="div3">
             <h2 class="divTitle">Recent tasks</h2>
+            {% if usertasks is empty %}
+                <p class="noteams">You currently have no tasks</p>
+
+            {% else %}
+                <div class="divoverflow">
+                    <table>
+                        <thead>
+                        <tr class="tablecontent">
+                            <th class="tablecontent">Task title</th>
+                            <th class="tablecontent2">Detail</th>
+                        <tbody>
+
+                        {% for task in usertasks %}
+
+                            <tr>
+                                <td class="tablecontent">{{ task.taskname }}</td>
+                                <td class="tablecontent2">
+                                    <a class="btn btn-info btn-sm" href="{{ path('tasks_show', { 'id' : task.id}) }}">info</a>
+                                </td>
+                            </tr>
+
+                        {% endfor %}
+
+                        </tbody>
+                    </table>
+                </div>
+
+            {% endif %}
         </div>
         <div class="clear"></div>
     </div>

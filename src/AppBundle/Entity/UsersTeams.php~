@@ -10,7 +10,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * UsersTeams
- * @ORM\Table(name="usersteams")
+ * @ORM\Table(name="UsersTeams")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UsersTeamsRepository")
  */
 class UsersTeams

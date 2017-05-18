@@ -17,6 +17,7 @@ class HomeController extends Controller
     public function indexAction()
     {
         $userid = $this->getUser()->getId();
+
         return $this->redirectToRoute('homepageUser', [ 'id' => $userid ]);
     }
 
@@ -25,8 +26,18 @@ class HomeController extends Controller
      */
     public function userHomepage(Users $userid)
     {
+        $em=$this->getDoctrine()->getManager();
         $id = $userid->getId();
+
         $connection =$this->get('database_connection');
+      //  $user = $em->createQuery('SELECT u.username, u.name, u.lastname, u.email FROM AppBundle/Entity/Users as u WHERE u.id = ?1')->setParameters(1,$id)->getResult();
+       // $user=$connection->createQueryBuilder()->select('u.username', 'u.name', 'u.lastname', 'u.email')->from('users', 'u')->where('u.id = ?1')->setParameter(1, '$id');
+                $user = $connection->fetchAll(
+            'SELECT u.username, u.name, u.lastname, u.email
+              FROM users as u
+              WHERE u.id = ?
+              ', [$id]
+        );
         $userteams = $connection->fetchAll(
             'SELECT t.teamname, t.id, ut.id as uit
               FROM usersteams as ut, teams as t
@@ -41,8 +52,13 @@ class HomeController extends Controller
 //            'id'=> 6
 //        ]);
 
+        $usertasks=$connection->fetchAll('SELECT task.taskname, task.id
+                                                FROM tasks as task, users as usr
+                                                WHERE task.authorUser_id = usr.id AND usr.id=?', [$id]);
         return $this->render('homepage/homepage.html.twig', array(
             'usersteams' => $userteams,
+            'usertasks' => $usertasks,
+            'user' => $user,
         ));
 
     }

@@ -243,11 +243,11 @@ class Tasks
     /**
      * Set author
      *
-     * @param \AppBundle\Entity\Priorities $author
+     * @param \AppBundle\Entity\Users $author
      *
      * @return Tasks
      */
-    public function setAuthor(\AppBundle\Entity\Priorities $author = null)
+    public function setAuthor(\AppBundle\Entity\Users $author = null)
     {
         $this->author = $author;
 
@@ -257,7 +257,7 @@ class Tasks
     /**
      * Get author
      *
-     * @return \AppBundle\Entity\Priorities
+     * @return \AppBundle\Entity\Users
      */
     public function getAuthor()
     {

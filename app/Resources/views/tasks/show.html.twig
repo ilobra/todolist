@@ -18,6 +18,10 @@
                 <td>{{ task.taskcomment }}</td>
             </tr>
             <tr>
+                <th>Author</th>
+                <td>{{ author.username }}</td>
+            </tr>
+            <tr>
                 <th>Priority</th>
                 <td>{{ task.priority }}</td>
             </tr>
@@ -34,10 +38,6 @@
                 <td>{{ task.status }}</td>
             </tr>
             <tr>
-                <th>Assigned To</th>
-                <td>{{ assignedTo.name }}</td>
-            </tr>
-            <tr>
                 <th>Category</th>
                 <td>{{ category.categoryname }}</td>
             </tr>
@@ -46,7 +46,10 @@
 
     <ul>
         <li>
-            <a href="{{ path('tasks_index') }}">Back to the list</a>
+            <a href="{{ path('tasks_index') }}">Show all tasks</a>
+        </li>
+        <li>
+            <a href="{{ path('homepage') }}">Back to my profile</a>
         </li>
         <li>
             <a href="{{ path('tasks_edit', { 'id': task.id }) }}">Edit</a>

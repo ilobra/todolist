@@ -17,6 +17,10 @@
                 <th>Created</th>
                 <td>{% if category.created %}{{ category.created|date('Y-m-d') }}{% endif %}</td>
             </tr>
+            <tr>
+                <th>Category's tasks</th>
+                <td>{% for task in tasks %}{{ task.taskname }}{% endfor %}</td>
+            </tr>
         </tbody>
     </table>
 

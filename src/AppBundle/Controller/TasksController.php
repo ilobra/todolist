@@ -14,7 +14,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component
 /**
  * Task controller.
  *
- * @Route("tasks")
+ * @Route("/home/tasks")
  */
 class TasksController extends Controller
 {
@@ -29,7 +29,6 @@ class TasksController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $tasks = $em->getRepository('AppBundle:Tasks')->findAll();
-
         return $this->render('tasks/index.html.twig', array(
             'tasks' => $tasks,
 
@@ -71,16 +70,16 @@ class TasksController extends Controller
      * @Route("/{id}", name="tasks_show")
      * @Method("GET")
      */
-    public function showAction(Tasks $task, Users $userid, Categories $catId)
+    public function showAction(Tasks $task)
     {
         $deleteForm = $this->createDeleteForm($task);
-        $assignedTo = $this->getDoctrine()->getRepository('AppBundle:Users')->find($userid);
-        //$author = $this->get('security.token_storage')->getToken()->getUser();
-        $category = $this->getDoctrine()->getRepository('AppBundle:Categories')->find($catId);
+
+        $author = $task->getAuthor();
+        $category =$task->getCategory();;
         return $this->render('tasks/show.html.twig', array(
             'task' => $task,
-            'assignedTo' => $assignedTo,
-           // 'author'=>$author,
+            //'assignedTo' => $assignedTo,
+            'author'=>$author,
             'category' => $category,
             'delete_form' => $deleteForm->createView(),
         ));

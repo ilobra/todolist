@@ -9,6 +9,9 @@ you can choose task's priority, status, category, set due date and comment more 
 <br/>
 <b>Installation:</b> <br/>
 After cloning a repository to your computer, firstly you must install composer for this specific project. 
+<br/>
+Configure your parameters.yml file in order to connect to database. Update your database with command: php bin/console doctrine:schema:update --force
+<br/>
 Server starts with command: php bin/console server:start
 <br/>
 If everything is okay, you can now reach web page.

@@ -58,7 +58,7 @@ class Tasks
     /**
      * Many Tasks have one Status
      *
-     * @ORM\ManyToOne(targetEntity="status", inversedBy="statustasks")
+     * @ORM\ManyToOne(targetEntity="status", inversedBy="statustask")
      *  @ORM\JoinColumn(name="status_id", referencedColumnName="id")
      */
     private $status;

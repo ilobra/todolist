@@ -7,6 +7,9 @@
             <div class="navbar-header">
                 <a class="navbar-brand" href="{{ path('tasks_index', { 'id': team.id }) }}">Todo List</a>
             </div>
+            <ul class="nav navbar-nav navbar-left">
+                <li class="active"><a>{{ team.teamname }}</a></li>
+            </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li ><a href="{{ path('homepageUser', { 'id': app.user.id }) }}">Profile</a> </li>
                 <li class="dropdown">
@@ -38,7 +41,17 @@
 
 {% block body %}
 
+    {% if categories is empty %}
+        <p class="noteams">Welcome to the projects overview page! </p>
+        <br style="margin-bottom: 100px">
+        <p class="noteams">Start building your project by adding a new category</p>
+        <center><a href="{{ path('categories_new', { 'id': team.id }) }}" class="btn btn-info btn-lg" >Make a new category</a></center>
+        <br>
+        <p class="noteams">Or navigate by using the button at the top right corner</p>
+
+    {% else %}
 <div class="TasksBox">
+
     {% for category in categories %}
     <div class="TasksField">
 
@@ -97,7 +110,8 @@
 
     </div>
     {% endfor %}
-
 </div>
+
+{% endif %}
 
 {% endblock %}

@@ -63,7 +63,7 @@ class TasksController extends Controller
      */
     public function indexAction(Teams $teams)
     {
-        $tasks = $teams->getTeamtasks();
+        $teamname = $teams->getTeamname();
 
         $connection =$this->get('database_connection');
 
@@ -81,10 +81,11 @@ class TasksController extends Controller
               AND ta.category_id = c.id AND ta.priority_id = p.id
               ORDER BY c.created ASC, ta.priority_id ASC, ta.dueto DESC, ta.status ASC '
         );
-
+        dump($categories);
         return $this->render('tasks/index.html.twig', array(
             'tasks' => $tasks,
             'team' => $teams,
+            'teamname' => $teamname,
             'categories' =>$categories,
         ));
     }

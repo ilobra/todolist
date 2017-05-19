@@ -44,9 +44,16 @@ class HomeController extends Controller
               Order BY t.id DESC ', [$id]
         );
 
-        $usertasks=$connection->fetchAll('SELECT task.taskname, task.id
-                                                FROM tasks as task, users as usr
-                                                WHERE task.authorUser_id = usr.id AND usr.id=?', [$id]);
+//        $repository = $this->getDoctrine()->getRepository('AppBundle:Teams');
+//        $teams = $repository->findBy([
+//            'id'=> 6
+//        ]);
+
+        $usertasks=$connection->fetchAll(
+            'SELECT task.taskname, task.id, teams.teamname
+            FROM tasks as task, users as usr, teams
+            WHERE task.authorUser_id = usr.id AND usr.id=? AND task.team_id = teams.id', [$id]);
+
         return $this->render('homepage/homepage.html.twig', array(
             'usersteams' => $userteams,
             'usertasks' => $usertasks,

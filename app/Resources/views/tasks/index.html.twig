@@ -2,7 +2,7 @@
 
 {% block head %}
 
-    <nav class="navbar navbar-inverse">
+    <nav class="navbar navbar-inverse" >
         <div class="container-fluid">
             <div class="navbar-header">
                 <a class="navbar-brand" href="{{ path('tasks_index', { 'id': team.id }) }}">Todo List</a>
@@ -37,51 +37,67 @@
 {% endblock %}
 
 {% block body %}
-    <h1>Tasks' list</h1>
 
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Task name</th>
-                <th>Comment about task</th>
-                <th>Author</th>
-                <th>Priority</th>
-                <th>Created</th>
-                <th>Due to</th>
-                <th>Status</th>
-                <th>Category</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
+<div class="TasksBox">
+    {% for category in categories %}
+    <div class="TasksField">
+
+        <h2 class="Tasksh2"><a style="color: white" href="{{ path('tasks_show', { 'id': category.id }) }}">{{ category.categoryname }}</a></h2>
         {% for task in tasks %}
+            <table>
+
+        {% if task.categoryname == category.categoryname %}
+            <tbody class="TasksTaskBox">
+
             <tr>
-                <td><a href="{{ path('tasks_show', { 'id': task.id }) }}">{{ task.id }}</a></td>
-                <td>{{ task.taskname }}</td>
-                <td>{{ task.taskcomment }}</td>
-                <td>{{ task.author }}</td>
-                <td>{{ task.priority }}</td>
-                <td>{% if task.created %}{{ task.created|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{% if task.dueto %}{{ task.dueto|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{{ task.status }}</td>
-                <td>{{ task.category }}</td>
-                <td>
-
-                    <form action="{{ path('tasks_show', { 'id': task.id }) }}">
-                        <input type="submit" value="Show" />
-                    </form>
-                            <form action="{{ path('tasks_edit', { 'id': task.id }) }}">
-                                <input type="submit" value="Edit" />
-                            </form>
-                </td>
+                <th class="TasksTask1">Task name: </th>
+                <td class="TasksTask2">{{ task.taskname }}</td>
+                <td class="TasksTask3"> </td>
             </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            <tr>
+                <th class="TasksTask1">Author:</th>
+                <td class="TasksTask2">{{ task.username }}</td>
 
-            <form action="{{ path('tasks_new', {'id' : team.id}) }}">
-                <input type="submit" value="Create a new task" />
-            </form>
+                {% if task.status == "active" %}
+                    <td class="TasksTask3 TasksColorGreen">Active</td>
+                {% elseif task.status == "ideal" %}
+                    <td class="TasksTask3 TasksColorGrey">Ideal </td>
+                {% elseif task.status == "stopped" %}
+                    <td class="TasksTask3 TasksColorRed">Stopped</td>
+                {% elseif task.status == "done" %}
+                    <td class="TasksTask3 TasksColorBlue">Done</td>
+                {% endif %}
+
+            </tr>
+            <tr class="TasksMargin">
+                <th class="TasksTask1">Due to</th>
+                <td class="TasksTask2">{% if task.dueto %}{{ task.dueto|date('Y-m-d') }}{% endif %}</td>
+                <td class="TasksTask3"><a class="btn btn-default btn-xs" style="width: 60px" href="{{ path('tasks_edit', { 'id': task.id }) }}">Edit</a></td>
+            </tr>
+            <tr class="TasksPadding">
+                <th class="TasksTask1">Priority:</th>
+                {% if task.priorities == "High" %}
+                    <td class="TasksTask2 TasksPrioriryHigh">{{ task.priorities }}</td>
+                {% elseif task.priorities == "Medium" %}
+                    <td class="TasksTask2 TasksPrioriryMedium">{{ task.priorities }}</td>
+                {% elseif task.priorities == "Low" %}
+                    <td class="TasksTask2 TasksPrioriryLow">{{ task.priorities }}</td>
+                {% endif %}
+                <td class="TasksTask3"> </td>
+            </tr>
+            <tr >
+                <td class="TasksSpacing"></td>
+            </tr >
+            </tbody>
+
+            {% endif %}
+
+        </table>
+        {% endfor %}
+
+    </div>
+    {% endfor %}
+
+</div>
 
 {% endblock %}

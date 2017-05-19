@@ -65,9 +65,27 @@ class TasksController extends Controller
     {
         $tasks = $teams->getTeamtasks();
 
+        $connection =$this->get('database_connection');
+
+        $categories= $connection->fetchAll(
+            'SELECT categories.categoryname, categories.id
+              FROM teams, categories
+              WHERE teams.id = categories.team_id AND teams.id = ?
+              ORDER BY categories.categoryname ASC ', [$teams->getId()]
+        );
+
+        $tasks= $connection->fetchAll(
+            'SELECT ta.id, ta.taskname, ta.taskcomment, ta.created, ta.dueto, ta.status, u.username, te.teamname, c.categoryname, p.priorities 
+              FROM tasks as ta, users as u, teams as te, categories as c, priorities as p 
+              WHERE ta.team_id = te.id AND ta.authorUser_id = u.id 
+              AND ta.category_id = c.id AND ta.priority_id = p.id
+              ORDER BY c.created ASC, ta.priority_id ASC, ta.dueto DESC, ta.status ASC '
+        );
+
         return $this->render('tasks/index.html.twig', array(
             'tasks' => $tasks,
             'team' => $teams,
+            'categories' =>$categories,
         ));
     }
 

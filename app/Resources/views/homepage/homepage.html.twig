@@ -84,6 +84,7 @@
                         <tr class="tablecontent">
                             <th class="tablecontent">Team name</th>
                             <th class="tablecontent2">Details</th>
+                        </tr>
                         <tbody>
 
                         {% for team in usersteams %}
@@ -115,13 +116,16 @@
                         <thead>
                         <tr class="tablecontent">
                             <th class="tablecontent">Task title</th>
-                            <th class="tablecontent2">Details</th>
+                            <th class="tablecontent2">Team name</th>
+                            <th class="tablecontent3">Details</th>
+                        </tr>
                         <tbody>
 
                         {% for task in usertasks %}
 
                             <tr>
                                 <td class="tablecontent">{{ task.taskname }}</td>
+                                <td class="tablecontent">{{ task.teamname }}</td>
                                 <td class="tablecontent2">
                                     <a class="btn btn-info btn-sm" href="{{ path('tasks_show', { 'id' : task.id}) }}">info</a>
                                 </td>

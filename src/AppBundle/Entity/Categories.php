@@ -25,7 +25,7 @@ class Categories
     /**
      * @var string
      *
-     * @ORM\Column(name="categoryname", type="string", length=100, unique=true)
+     * @ORM\Column(name="categoryname", type="string", length=100)
      */
     private $categoryname;
 
@@ -52,6 +52,7 @@ class Categories
     public function __construct()
     {
         $this->categorytasks = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->created=new \DateTime();
     }
 
     /**

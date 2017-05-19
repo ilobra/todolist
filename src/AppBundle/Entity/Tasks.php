@@ -56,7 +56,7 @@ class Tasks
     private $dueto;
 
     /**
-     * @var string
+     * Many Tasks have one Status
      *
      * @ORM\ManyToOne(targetEntity="status", inversedBy="statustasks")
      *  @ORM\JoinColumn(name="status_id", referencedColumnName="id")
@@ -91,6 +91,11 @@ class Tasks
      * @ORM\JoinColumn(name="team_id", referencedColumnName="id")
      */
     private $team;
+
+    public function __construct()
+    {
+        $this->created = new \DateTime();
+    }
     /**
      * Get id
      *

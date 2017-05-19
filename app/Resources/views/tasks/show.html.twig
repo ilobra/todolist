@@ -39,15 +39,15 @@
             </tr>
             <tr>
                 <th>Category</th>
-                <td><a href="{{ path('categories_show', {'id': category.id }) }}">{{ category.categoryname }}</td>
+                <td><a href="{{ path('category_show', {'id': category.id }) }}">{{ category.categoryname }}</td>
             </tr>
         </tbody>
     </table>
 
 
 
-    <form action="{{ path('homepage') }}">
-        <input type="submit" value="Back to profile" />
+    <form action="{{ path('tasks_index', {'id' : team.id}) }}">
+        <input type="submit" value="Back to the tasks' list" />
     </form>
 
     <form action="{{ path('tasks_edit', { 'id': task.id }) }}">

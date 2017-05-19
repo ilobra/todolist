@@ -23,7 +23,7 @@
                     <ul class="dropdown-menu">
                         <li class="active"><a href="{{ path('tasks_index', { 'id': team.id }) }}">Return to project view</a></li>
                         <li role="separator" class="divider"></li>
-                        <li><a href="{{ path('categories_index', { 'id': team.id }) }}">Catagories</a></li>
+                        <li><a href="{{ path('categories_index', { 'id': team.id }) }}">Categories</a></li>
                         <li><a href="{{ path('tasks_new', { 'id': team.id }) }}">Create a new task</a></li>
                         <li role="separator" class="divider"></li>
                         <li><a href="">Most recent tasks</a></li>
@@ -80,7 +80,7 @@
         </tbody>
     </table>
 
-            <form action="{{ path('tasks_new') }}">
+            <form action="{{ path('tasks_new', {'id' : team.id}) }}">
                 <input type="submit" value="Create a new task" />
             </form>
 

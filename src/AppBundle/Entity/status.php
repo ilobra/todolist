@@ -25,13 +25,13 @@ class status
     /**
      * @var string
      *
-     * @ORM\Column(name="status", type="string", length=255)
+     * @ORM\Column(name="status", type="string", length=100, nullable=false)
      */
     private $status;
 
     /**
-     * One Priority has Many Tasks.
-     * @ORM\OneToMany(targetEntity="status", mappedBy="string")
+     * One Status has Many Tasks.
+     * @ORM\OneToMany(targetEntity="Tasks", mappedBy="status")
      */
     private $statustask;
 
@@ -59,7 +59,7 @@ class status
     }
 
     /**
-     * Set string
+     * Set status
      *
      * @param string $status
      *
@@ -73,7 +73,7 @@ class status
     }
 
     /**
-     * Get string
+     * Get status
      *
      * @return string
      */

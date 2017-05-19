@@ -67,7 +67,7 @@ class TasksController extends Controller
 
         return $this->render('tasks/index.html.twig', array(
             'tasks' => $tasks,
-            'team' => $teams
+            'team' => $teams,
         ));
     }
 
@@ -95,7 +95,7 @@ class TasksController extends Controller
 
             $this->addFlash('success', 'Successfully created a new task!');
 
-            return $this->redirectToRoute('tasks_show', array('team' => $teams));
+            return $this->redirectToRoute('tasks_show', array('team' => $teams, 'id' => $task->getId()));
         }
 
         return $this->render('tasks/new.html.twig', array(
@@ -117,10 +117,12 @@ class TasksController extends Controller
         $deleteForm = $this->createDeleteForm($task);
         $author = $task->getAuthor();
         $category =$task->getCategory();
+        $team=$task->getTeam();
         return $this->render('tasks/show.html.twig', array(
             'task' => $task,
             'author'=>$author,
             'category' => $category,
+            'team'=>$team,
             'delete_form' => $deleteForm->createView(),
         ));
     }
@@ -136,15 +138,16 @@ class TasksController extends Controller
         $deleteForm = $this->createDeleteForm($task);
         $editForm = $this->createForm('AppBundle\Form\TasksType', $task);
         $editForm->handleRequest($request);
-
+        $team=$task->getTeam();
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('tasks_edit', array('id' => $task->getId()));
+            return $this->redirectToRoute('tasks_show', array('id' => $task->getId()));
         }
 
         return $this->render('tasks/edit.html.twig', array(
             'task' => $task,
+            'team' => $team,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));

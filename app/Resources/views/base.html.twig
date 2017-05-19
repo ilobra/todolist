@@ -60,8 +60,13 @@
                 </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><form class="navbar-form navbar-right">
+                   {% if app.user %}
+                        <a href="{{ path('homepage') }}" role="button" class="btn btn-info" style="width: 80px">Home</a>
+                        <a href="/logout" role="button" class="btn btn-info" style="width: 80px">Logout</a>
+                   {% else %}
                         <a href="/login" role="button" class="btn btn-info" style="width: 80px">Log in</a>
                         <a href="/register" role="button" class="btn btn-info" style="width: 80px">Sign up</a>
+                   {% endif %}
                     </form></li>
             </ul>
         </div>

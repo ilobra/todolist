@@ -42,7 +42,7 @@ class Teams
     private $teamtasks;
 
     /**
-     * One Team has Many Tasks
+     * One Team has Many Categories
      * @ORM\OneToMany(targetEntity="Categories", mappedBy="team")
      */
     private $teamcategories;

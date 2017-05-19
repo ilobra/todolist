@@ -30,7 +30,7 @@
     </table>
 
     <div class="row">
-         <div class="col-sm-1"><form action="{{ path('categories_index') }}">
+         <div class="col-sm-1"><form action="{{ path('categories_index', { 'id' : team.id }) }}">
                  <input type="submit" value="Back" />
              </form></div>
         <div class="col-sm-1"  style="text-align: right"> <form action="{{ path('categories_edit', { 'id': category.id }) }}">

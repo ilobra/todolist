@@ -66,16 +66,18 @@ class CategoriesController extends Controller
     /**
      * Finds and displays a category entity.
      *
-     * @Route("/team={id}/showcategories", name="categories_show")
+     * @Route("/showcategory/{id}", name="category_show")
      * @Method("GET")
      */
     public function showAction(Categories $category)
     {
         $deleteForm = $this->createDeleteForm($category);
         $tasks=$category->getCategorytasks();
+        $team=$category->getTeam();
         return $this->render('categories/show.html.twig', array(
             'category' => $category,
             'tasks'=>$tasks,
+            'team'=>$team,
             'delete_form' => $deleteForm->createView(),
         ));
     }
@@ -91,7 +93,7 @@ class CategoriesController extends Controller
         $deleteForm = $this->createDeleteForm($category);
         $editForm = $this->createForm('AppBundle\Form\CategoriesType', $category);
         $editForm->handleRequest($request);
-
+        $team=$category->getTeam();
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
@@ -101,6 +103,7 @@ class CategoriesController extends Controller
         return $this->render('categories/edit.html.twig', array(
             'category' => $category,
             'edit_form' => $editForm->createView(),
+            'team' => $team,
             'delete_form' => $deleteForm->createView(),
         ));
     }

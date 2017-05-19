@@ -17,7 +17,7 @@ class TasksType extends AbstractType
 
         $builder->add('taskname')->add('taskcomment')->add('priority')->add('dueto')->add('status')->add('category');
     }
-    public function __construct() { $this->created = new \DateTime(); }
+
     /**
      * {@inheritdoc}
      */

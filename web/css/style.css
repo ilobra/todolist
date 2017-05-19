@@ -48,6 +48,7 @@ div.overflowFullWindow{
     width: auto;
     height: 100%;
     overflow: scroll;
+    overflow-x: hidden;
 }
 div.box{
     margin: auto;
@@ -78,6 +79,7 @@ div.divoverflow{
     width: auto;
     height: 85%;
     overflow: scroll;
+    overflow-x: hidden;
 }
 
 div.div3{
@@ -114,6 +116,79 @@ input.divfield{
     padding: 4px;
     margin-left: 20px;
 }
+
+/* for chooseProject.html.twig*/
+
+tr.projectcontent{
+    border-bottom: 2px solid lightgray;
+}
+th.projectcontent{
+    border-bottom: 3px solid lightgray;
+    padding: 8px;
+    font-style: italic;
+    font-size: 14pt;
+    width: 40%;
+    text-align: center;
+}
+th.projectcontent2{
+    width: 20%;
+    font-size: 14pt;
+    font-style: italic;
+    text-align: center;
+    border-bottom: 3px solid lightgray;
+}
+th.projectcontent3{
+    width: 40%;
+    font-size: 14pt;
+    font-style: italic;
+    text-align: center;
+    border-bottom: 3px solid lightgray;
+}
+td.projectcontent{
+    border-bottom: 2px solid lightgray;
+    padding: 8px;
+    font-size: 13pt;
+    width: 40%;
+    text-align: center;
+}
+td.projectcontent2{
+    width: 20%;
+    text-align: center;
+    border-bottom: 2px solid lightgray;
+}
+td.projectcontent3{
+    width: 40%;
+    text-align: center;
+    border-bottom: 2px solid lightgray;
+}
+
+/*Default table field separation*/
+
+tr.tablecontent{
+    border-bottom: 2px solid lightgray;
+}
+th.tablecontent{
+    border-bottom: 3px solid lightgray;
+    padding: 8px;
+    font-style: italic;
+    font-size: 14pt;
+    width: 60%;
+    text-align: center;
+}
+th.tablecontent2{
+    width: 25%;
+    font-size: 14pt;
+    font-style: italic;
+    text-align: center;
+    border-bottom: 3px solid lightgray;
+}
+th.tablecontent3{
+    width: 15%;
+    font-size: 14pt;
+    font-style: italic;
+    text-align: center;
+    border-bottom: 3px solid lightgray;
+}
 td.tablecontent{
     border-bottom: 2px solid lightgray;
     padding: 8px;
@@ -130,29 +205,6 @@ td.tablecontent3{
     width: 15%;
     text-align: center;
     border-bottom: 2px solid lightgray;
-}
-th.tablecontent{
-    border-bottom: 3px solid lightgray;
-    padding: 8px;
-    font-style: italic;
-    font-size: 14pt;
-    width: 60%;
-    text-align: center;
-
-}
-th.tablecontent2{
-    width: 25%;
-    font-size: 14pt;
-    font-style: italic;
-    text-align: center;
-    border-bottom: 3px solid lightgray;
-}
-th.tablecontent3{
-    width: 15%;
-    font-size: 14pt;
-    font-style: italic;
-    text-align: center;
-    border-bottom: 3px solid lightgray;
 }
 
 th.MemberDisplay{
@@ -183,10 +235,7 @@ td.MemberDisplay2{
     border-bottom: 2px solid lightgray;
 }
 
-tr.tablecontent{
-    border-bottom: 2px solid lightgray;
 
-}
 p.noteams{
     text-align: center;
     position: relative;
@@ -220,7 +269,7 @@ div.TasksField
     background-color: white;
     display: inline-block;
     height: 100%;
-    width: 400px;
+    width: 380px;
     margin-right: 30px;
     margin-left: 30px;
 }
@@ -233,12 +282,11 @@ h2.Tasksh2
     padding: 20px;
     text-align: center;
     background-color: #999999;
-    color: white;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
 td.TasksSpacing {
     padding-top: 20px;
-    border-top: 1px solid #999999;
+    border-top: 2px solid #999999;
 }
 tbody.TasksTaskBox
 {

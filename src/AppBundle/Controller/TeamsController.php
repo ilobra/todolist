@@ -6,7 +6,7 @@ use AppBundle\Entity\Teams;
 use AppBundle\Entity\Users;
 use AppBundle\Entity\UsersTeams;
 use AppBundle\Form\TeamsType;
-use FOS\UserBundle\Model\User;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
@@ -43,7 +43,7 @@ class TeamsController extends Controller
     /**
      * Creates a new team entity.
      *
-     * @Route("/new_user={id}", name="teams_new")
+     * @Route("/member/{id}", name="teams_new")
      * @Method({"GET", "POST"})
      */
     public function newAction(Request $request,  Users $userid)
@@ -85,28 +85,30 @@ class TeamsController extends Controller
     /**
      * Finds and displays a team entity.
      *
-     * @Route("/showone/userteam={id}", name="teams_show_one")
+     * @Route("/{ida}/relation/{id}/show_one", name="teams_show_one")
      * @Method("GET")
+     * @ParamConverter("teams", class="AppBundle:Teams", options={"id" = "ida"})
      * @param UsersTeams $userteamid
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function showAction( UsersTeams $userteamid)
+    public function showAction( UsersTeams $userteamid, Teams $teams)
     {
         $uid = $userteamid->getId();
+        $ida = $teams->getId();
 
         $connection =$this->get('database_connection');
         $team= $connection->fetchArray(
             'SELECT teams.teamname, COUNT(usersteams.user_id) as ct, teams.id
               FROM teams, usersteams
               WHERE teams.id = usersteams.teams_id
-              AND usersteams.id = ?', [$uid]
+              AND usersteams.teams_id = ?', [$ida]
         );
 
         $users= $connection->fetchAll(
             'SELECT users.username, users.email
               FROM users, usersteams
               WHERE users.id = usersteams.user_id
-              AND usersteams.id = ?', [$uid]
+              AND usersteams.teams_id = ?', [$ida]
         );
         $deleteForm = $this->createDeleteForm($userteamid);
 
@@ -120,12 +122,14 @@ class TeamsController extends Controller
     /**
      * Finds and displays a team entity.
      *
-     * @Route("/show_all/user={id}", name="teams_show_all")
+     * @Route("/member/{id}/show_all", name="teams_show_all")
+     *
      * @Method("GET")
      */
     public function showAllAction(Users $userid)
     {
         $id = $userid->getId();
+
         $connection =$this->get('database_connection');
         $userteams = $connection->fetchAll(
             'SELECT t.teamname, t.id, ut.id as uit
@@ -141,7 +145,7 @@ class TeamsController extends Controller
     /**
      * Creates a new team entity.
      *
-     * @Route("/join/team={id}", name="teams_join")
+     * @Route("/{id}/join", name="teams_join")
      * @Method({"GET"})
      */
     public function joinAction(Teams $teamid)

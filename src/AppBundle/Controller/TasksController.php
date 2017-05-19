@@ -2,11 +2,11 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\Categories;
+use AppBundle\AppBundle;
 use AppBundle\Entity\Tasks;
 use AppBundle\Entity\Teams;
 use AppBundle\Entity\Users;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use AppBundle\Form\TasksType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
@@ -15,14 +15,14 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component
 /**
  * Task controller.
  *
- * @Route("home/project/tasks")
+ * @Route("home/project")
  */
 class TasksController extends Controller
 {
     /**
      * Finds and displays a teams project
      *
-     * @Route("/user={id}", name="teams_project")
+     * @Route("/teams/{id}", name="teams_project")
      * @Method("GET")
      */
     public function showAllAction(Users $userid)
@@ -36,7 +36,6 @@ class TasksController extends Controller
               AND ut.user_id = ?
               Order BY t.id DESC ', [$id]
         );
-        dump($userteams);
         return $this->render('tasks/chooseProject.html.twig', array(
             'userteams' => $userteams
         ));
@@ -44,7 +43,7 @@ class TasksController extends Controller
     /**
      * Greeting
      *
-     * @Route("/team={id}/greet", name="tasks_greeting")
+     * @Route("/{id}/greet", name="tasks_greeting")
      * @Method("GET")
      */
     public function greetAction(Teams $teams)
@@ -58,7 +57,7 @@ class TasksController extends Controller
     /**
      * Lists all task entities.
      *
-     * @Route("/team={id}", name="tasks_index")
+     * @Route("/{id}", name="tasks_index")
      * @Method("GET")
      */
     public function indexAction(Teams $teams)
@@ -75,13 +74,12 @@ class TasksController extends Controller
         );
 
         $tasks= $connection->fetchAll(
-            'SELECT ta.id, ta.taskname, ta.taskcomment, ta.created, ta.dueto, ta.status, u.username, te.teamname, c.categoryname, p.priorities 
-              FROM tasks as ta, users as u, teams as te, categories as c, priorities as p 
+            'SELECT ta.id, ta.taskname, ta.taskcomment, ta.created, ta.dueto, s.status, u.username, te.teamname, c.categoryname, p.priorities 
+              FROM tasks as ta, users as u, teams as te, categories as c, priorities as p, status as s
               WHERE ta.team_id = te.id AND ta.authorUser_id = u.id 
-              AND ta.category_id = c.id AND ta.priority_id = p.id
-              ORDER BY c.created ASC, ta.priority_id ASC, ta.dueto DESC, ta.status ASC '
+              AND ta.category_id = c.id AND ta.priority_id = p.id AND s.id = ta.status_id
+              ORDER BY c.created ASC, ta.priority_id ASC, ta.dueto DESC'
         );
-        dump($categories);
         return $this->render('tasks/index.html.twig', array(
             'tasks' => $tasks,
             'team' => $teams,
@@ -93,7 +91,7 @@ class TasksController extends Controller
     /**
      * Creates a new task entity.
      *
-     * @Route("/team={id}/newtask", name="tasks_new")
+     * @Route("/{id}/newtask", name="tasks_new")
      * @Method({"GET", "POST"})
      */
     public function newAction(Request $request, Teams $teams)
@@ -114,7 +112,7 @@ class TasksController extends Controller
 
             $this->addFlash('success', 'Successfully created a new task!');
 
-            return $this->redirectToRoute('tasks_show', array('team' => $teams, 'id' => $task->getId()));
+            return $this->redirectToRoute('tasks_show', array('id' => $task->getId()));
         }
 
         return $this->render('tasks/new.html.twig', array(
@@ -128,7 +126,7 @@ class TasksController extends Controller
     /**
      * Finds and displays a task entity.
      *
-     * @Route("/{id}", name="tasks_show")
+     * @Route("/{id}/show", name="tasks_show")
      * @Method("GET")
      */
     public function showAction(Tasks $task)
@@ -154,10 +152,10 @@ class TasksController extends Controller
      */
     public function editAction(Request $request, Tasks $task)
     {
-        $deleteForm = $this->createDeleteForm($task);
-        $editForm = $this->createForm('AppBundle\Form\TasksType', $task);
-        $editForm->handleRequest($request);
         $team=$task->getTeam();
+        $deleteForm = $this->createDeleteForm($task);
+        $editForm = $this->createForm(TasksType::class, $task);
+        $editForm->handleRequest($request);
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
@@ -176,11 +174,12 @@ class TasksController extends Controller
     /**
      * Deletes a task entity.
      *
-     * @Route("/{id}", name="tasks_delete")
+     * @Route("/{id}/delete", name="tasks_delete")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, Tasks $task)
     {
+        $team=$task->getTeam();
         $form = $this->createDeleteForm($task);
         $form->handleRequest($request);
 
@@ -190,7 +189,7 @@ class TasksController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('tasks_index');
+        return $this->redirectToRoute('tasks_index', [ 'id'=> $team->getId() ]);
     }
 
     /**

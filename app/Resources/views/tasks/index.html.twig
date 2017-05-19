@@ -27,9 +27,8 @@
                         <li class="active"><a href="{{ path('tasks_index', { 'id': team.id }) }}">Return to project view</a></li>
                         <li role="separator" class="divider"></li>
                         <li><a href="{{ path('categories_index', { 'id': team.id }) }}">Categories</a></li>
-                        <li><a href="{{ path('tasks_new', { 'id': team.id }) }}">Create a new task</a></li>
+                        <li><a href="{{ path('tasks_new', { 'id': team.id}) }}">Create a new task</a></li>
                         <li role="separator" class="divider"></li>
-                        <li><a href="">Most recent tasks</a></li>
                         <li><a href="{{ path('members_show', { 'id': app.user.id }) }}">My tasks</a></li>
                     </ul>
                 </li>
@@ -55,7 +54,7 @@
     {% for category in categories %}
     <div class="TasksField">
 
-        <h2 class="Tasksh2"><a style="color: white" href="{{ path('tasks_show', { 'id': category.id }) }}">{{ category.categoryname }}</a></h2>
+        <h2 class="Tasksh2"><a style="color: white" href="{{ path('category_show', { 'id': category.id, 'ida' : team.id  }) }}">{{ category.categoryname }}</a></h2>
         {% for task in tasks %}
             <table>
 
@@ -71,13 +70,13 @@
                 <th class="TasksTask1">Author:</th>
                 <td class="TasksTask2">{{ task.username }}</td>
 
-                {% if task.status == "active" %}
+                {% if task.status == "Active" %}
                     <td class="TasksTask3 TasksColorGreen">Active</td>
-                {% elseif task.status == "ideal" %}
+                {% elseif task.status == "Ideal" %}
                     <td class="TasksTask3 TasksColorGrey">Ideal </td>
-                {% elseif task.status == "stopped" %}
+                {% elseif task.status == "Stopped" %}
                     <td class="TasksTask3 TasksColorRed">Stopped</td>
-                {% elseif task.status == "done" %}
+                {% elseif task.status == "Done" %}
                     <td class="TasksTask3 TasksColorBlue">Done</td>
                 {% endif %}
 
@@ -85,7 +84,7 @@
             <tr class="TasksMargin">
                 <th class="TasksTask1">Due to</th>
                 <td class="TasksTask2">{% if task.dueto %}{{ task.dueto|date('Y-m-d') }}{% endif %}</td>
-                <td class="TasksTask3"><a class="btn btn-default btn-xs" style="width: 60px" href="{{ path('tasks_edit', { 'id': task.id }) }}">Edit</a></td>
+                <td class="TasksTask3"><a class="btn btn-info btn-xs" style="width: 60px" href="{{ path('tasks_edit', { 'id': task.id }) }}">Edit</a></td>
             </tr>
             <tr class="TasksPadding">
                 <th class="TasksTask1">Priority:</th>

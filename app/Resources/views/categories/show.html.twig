@@ -24,8 +24,14 @@
             </tr>
             <tr>
                 <th>Category's tasks</th>
-                <td>{% for task in tasks %}{{ task.taskname }}{% endfor %}</td>
+                <th>Task name</th>
             </tr>
+            {% for task in tasks %}
+            <tr>
+                <th></th>
+                <td>{{ task.taskname }}</td>
+            </tr>
+            {% endfor %}
         </tbody>
     </table>
 

@@ -3,8 +3,8 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Categories;
-use AppBundle\Entity\Tasks;
 use AppBundle\Entity\Teams;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
@@ -12,14 +12,14 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component
 /**
  * Category controller.
  *
- * @Route("home/project/categories")
+ * @Route("home/project")
  */
 class CategoriesController extends Controller
 {
     /**
      * Lists all category entities.
      *
-     * @Route("/team={id}", name="categories_index")
+     * @Route("/{id}/categories", name="categories_index")
      * @Method("GET")
      */
     public function indexAction(Teams $teams)
@@ -35,7 +35,7 @@ class CategoriesController extends Controller
     /**
      * Creates a new category entity.
      *
-     * @Route("/team={id}/newcategory", name="categories_new")
+     * @Route("/{id}/categories/newcategory", name="categories_new")
      * @Method({"GET", "POST"})
      */
     public function newAction(Request $request, Teams $teams)
@@ -66,18 +66,19 @@ class CategoriesController extends Controller
     /**
      * Finds and displays a category entity.
      *
-     * @Route("/showcategory/{id}", name="category_show")
+     * @Route("{ida}/categories/{id}/showcategory", name="category_show")
+     * @ParamConverter("teams", class="AppBundle:Teams", options={"id" = "ida"})
      * @Method("GET")
      */
-    public function showAction(Categories $category)
+    public function showAction(Categories $category, Teams $teams)
     {
         $deleteForm = $this->createDeleteForm($category);
-        $tasks=$category->getCategorytasks();
-        $team=$category->getTeam();
+        $tasks = $category->getCategorytasks();
+
         return $this->render('categories/show.html.twig', array(
             'category' => $category,
             'tasks'=>$tasks,
-            'team'=>$team,
+            'team'=>$teams,
             'delete_form' => $deleteForm->createView(),
         ));
     }
@@ -85,7 +86,7 @@ class CategoriesController extends Controller
     /**
      * Displays a form to edit an existing category entity.
      *
-     * @Route("/{id}/edit", name="categories_edit")
+     * @Route("/{id}/categories/edit", name="categories_edit")
      * @Method({"GET", "POST"})
      */
     public function editAction(Request $request, Categories $category)
@@ -94,6 +95,7 @@ class CategoriesController extends Controller
         $editForm = $this->createForm('AppBundle\Form\CategoriesType', $category);
         $editForm->handleRequest($request);
         $team=$category->getTeam();
+
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
@@ -116,6 +118,14 @@ class CategoriesController extends Controller
      */
     public function deleteAction(Request $request, Categories $category)
     {
+        $tasks = $category->getCategorytasks();
+        foreach ($tasks as $key => $value)
+        {
+           $category->removeCategorytask($value);
+        }
+
+        $team=$category->getTeam();
+
         $form = $this->createDeleteForm($category);
         $form->handleRequest($request);
 
@@ -125,7 +135,7 @@ class CategoriesController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('categories_index');
+        return $this->redirectToRoute('categories_index', [ 'id'=> $team->getId() ]);
     }
 
     /**

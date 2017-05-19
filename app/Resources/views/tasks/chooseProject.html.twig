@@ -32,20 +32,20 @@
             <div class="overflowFullWindow">
                 <table>
                     <thead>
-                    <tr class="tablecontent">
-                        <th class="tablecontent">Team name</th>
-                        <th class="tablecontent2">Details</th>
-                        <th class="tablecontent3">Start working with this project</th>
+                    <tr class="projectcontent">
+                        <th class="projectcontent">Team name</th>
+                        <th class="projectcontent2">Details</th>
+                        <th class="projectcontent3">Choose a teams project</th>
                     <tbody>
                     {% for team in userteams %}
 
                         <tr>
-                            <td class="tablecontent">{{ team.teamname }}</td>
-                            <td class="tablecontent2">
-                                <a class="btn btn-info btn-sm" href="{{ path('teams_show_one', { 'id' : team.uit}) }}">info</a>
+                            <td class="projectcontent">{{ team.teamname }}</td>
+                            <td class="projectcontent2">
+                                <a class="btn btn-info btn-sm" href="{{ path('teams_show_one', { 'id' : team.uit, 'ida' : team.id}) }}">info</a>
                             </td>
-                            <td class="tablecontent3">
-                                <a class="btn btn-info" href="{{ path('tasks_greeting', { 'id' : team.id}) }}">Project</a>
+                            <td class="projectcontent3">
+                                <a class="btn btn-info btn-sm" href="{{ path('tasks_greeting', { 'id' : team.id}) }}">Open this project</a>
                             </td>
                         </tr>
                     {% endfor %}

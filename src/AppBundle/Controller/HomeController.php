@@ -22,7 +22,7 @@ class HomeController extends Controller
     }
 
     /**
-     * @Route("/home/user={id}", name="homepageUser")
+     * @Route("/home/{id}", name="homepageUser")
      */
     public function userHomepage(Users $userid)
     {
@@ -43,11 +43,6 @@ class HomeController extends Controller
               AND ut.user_id = ?
               Order BY t.id DESC ', [$id]
         );
-
-//        $repository = $this->getDoctrine()->getRepository('AppBundle:Teams');
-//        $teams = $repository->findBy([
-//            'id'=> 6
-//        ]);
 
         $usertasks=$connection->fetchAll(
             'SELECT task.taskname, task.id, teams.teamname

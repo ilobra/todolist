@@ -13,7 +13,7 @@
                     <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Teams <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="{{ path('teams_new', { 'id': app.user.id }) }}">Create a new team</a></li>
-                        <li><a href="{{ path('teams_show_all', { 'id': app.user.id }) }}">My teams</a></li>
+                        <li><a href="{{ path('teams_show_all', { 'id': app.user.id  }) }}">My teams</a></li>
                         <li role="separator" class="divider"></li>
                         <li><a href="{{ path('teams_index')}}">List of all teams</a></li>
                     </ul>
@@ -92,7 +92,7 @@
                             <tr>
                                 <td class="tablecontent">{{ team.teamname }}</td>
                                 <td class="tablecontent2">
-                                    <a class="btn btn-info btn-sm" href="{{ path('teams_show_one', { 'id' : team.uit}) }}">info</a>
+                                    <a class="btn btn-info btn-sm" href="{{ path('teams_show_one', { 'id' : team.uit, 'ida' : team.id}) }}">info</a>
                                 </td>
                             </tr>
 

@@ -35,6 +35,7 @@ class HomeController extends Controller
               WHERE u.id = ?
               ', [$id]
         );
+
         $userteams = $connection->fetchAll(
             'SELECT t.teamname, t.id, ut.id as uit
               FROM usersteams as ut, teams as t
@@ -42,12 +43,6 @@ class HomeController extends Controller
               AND ut.user_id = ?
               Order BY t.id DESC ', [$id]
         );
-
-        dump($userteams);
-//        $repository = $this->getDoctrine()->getRepository('AppBundle:Teams');
-//        $teams = $repository->findBy([
-//            'id'=> 6
-//        ]);
 
         $usertasks=$connection->fetchAll('SELECT task.taskname, task.id
                                                 FROM tasks as task, users as usr

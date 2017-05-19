@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+
     <h1>Task</h1>
 
     <table>
@@ -44,10 +45,8 @@
         </tbody>
     </table>
 
-
-
-    <form action="{{ path('tasks_index', {'id' : team.id}) }}">
-        <input type="submit" value="Back to the tasks' list" />
+    <form action="{{ path('homepage') }}">
+        <input type="submit" value="Back to profile" />
     </form>
 
     <form action="{{ path('tasks_edit', { 'id': task.id }) }}">

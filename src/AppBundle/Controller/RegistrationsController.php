@@ -34,16 +34,6 @@ class RegistrationsController extends Controller
             $em->persist($user);
             $em->flush();
 
-//            $token = new UsernamePasswordToken(
-//                $user,
-//                $password,
-//                'main',
-//                $user->getRoles()
-//            );
-//
-//            $this->get('security.token_storage')->setToken($token);
-//            $this->get('session')->set('_security_main', serialize($token));
-
             $this->addFlash('success', 'Successfully registered!');
 
             return $this->redirectToRoute('homepage');

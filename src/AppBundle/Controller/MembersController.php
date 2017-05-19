@@ -13,21 +13,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component
  */
 class MembersController extends Controller
 {
-//    /**
-//     * Lists all member entities.
-//     *
-//     * @Route("/", name="members_index")
-//     * @Method("GET")
-//     */
-//    public function indexAction()
-//    {
-//        $em = $this->getDoctrine()->getManager();
-//        $members = $em->getRepository('AppBundle:Users')->findAll();
-//        return $this->render('members/index.html.twig', array(
-//            'members' => $members,
-//        ));
-//    }
-
     /**
      * Finds and displays a member entity.
      *
@@ -56,7 +41,7 @@ class MembersController extends Controller
         $editForm->handleRequest($request);
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-            return $this->redirectToRoute('members_edit', array('id' => $member->getId()));
+            return $this->redirectToRoute('homepage', array('id' => $member->getId()));
         }
         return $this->render('members/edit.html.twig', array(
             'member' => $member,

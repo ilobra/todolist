@@ -77,14 +77,13 @@
 
             {% if usersteams is empty %}
                 <p class="noteams">You currently have no teams</p>
-
             {% else %}
                 <div class="divoverflow">
                     <table>
                         <thead>
                         <tr class="tablecontent">
                             <th class="tablecontent">Team name</th>
-                            <th class="tablecontent2">Detail</th>
+                            <th class="tablecontent2">Details</th>
                         <tbody>
 
                         {% for team in usersteams %}
@@ -116,7 +115,7 @@
                         <thead>
                         <tr class="tablecontent">
                             <th class="tablecontent">Task title</th>
-                            <th class="tablecontent2">Detail</th>
+                            <th class="tablecontent2">Details</th>
                         <tbody>
 
                         {% for task in usertasks %}

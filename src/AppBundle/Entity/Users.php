@@ -60,12 +60,6 @@ class Users implements UserInterface, \Serializable
      */
     private $email;
 
-//    /**
-//     * @ORM\Column(name="role", type="string", length=50, nullable=true)
-//     */
-//    protected $role;
-
-
     /**
      * @Assert\Regex(
      *      pattern="/(?=.*[0-9])(?=.*[a-z]).{5,}$/",
@@ -100,9 +94,6 @@ class Users implements UserInterface, \Serializable
         $this->usersteamsUser = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
-//    public function __toString() {
-//        return $this->(int)id;
-//    }
     /**
      * Get id
      *
@@ -345,12 +336,12 @@ class Users implements UserInterface, \Serializable
 
     public function getSalt()
     {
-//        return null;
+
     }
 
     public function eraseCredentials()
     {
-//        $this->plainPassword = null;
+
     }
 
     public function __toString()

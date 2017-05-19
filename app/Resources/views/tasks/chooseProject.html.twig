@@ -26,7 +26,7 @@
 {% endblock %}
 
 {% block body %}
-    <h2 style="margin-left: 30px">Choose from the availabe projects</h2>
+    <h2 style="margin-left: 30px">Choose from the available projects</h2>
     <div class="boxFullWindow">
         <div class="divFullWindow">
             <div class="overflowFullWindow">
@@ -34,7 +34,7 @@
                     <thead>
                     <tr class="tablecontent">
                         <th class="tablecontent">Team name</th>
-                        <th class="tablecontent2">Detail</th>
+                        <th class="tablecontent2">Details</th>
                         <th class="tablecontent3">Start working with this project</th>
                     <tbody>
                     {% for team in userteams %}
@@ -48,7 +48,6 @@
                                 <a class="btn btn-info" href="{{ path('tasks_greeting', { 'id' : team.id}) }}">Project</a>
                             </td>
                         </tr>
-
                     {% endfor %}
                     </tbody>
                 </table>

@@ -81,16 +81,27 @@ class status
     {
         return $this->status;
     }
+
+    /**
+     * Remove statustask
+     *
+     * @param \AppBundle\Entity\Tasks $statustask
+     */
     public function removeStatustask(\AppBundle\Entity\Tasks $statustask)
     {
         $this->statustask->removeElement($statustask);
     }
 
-
+    /**
+     * Get statustask
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
     public function getStatustask()
     {
         return $this->statustask;
     }
+
     public function __toString()
     {
         return $this->status;

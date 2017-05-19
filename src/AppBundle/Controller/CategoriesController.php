@@ -53,7 +53,7 @@ class CategoriesController extends Controller
 
             $this->addFlash('success', 'Successfully created a new category!');
 
-            return $this->redirectToRoute('categories_show', array('id' => $teams->getId()));
+            return $this->redirectToRoute('categories_index', array('id' => $teams->getId()));
         }
 
         return $this->render('categories/new.html.twig', array(

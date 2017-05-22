@@ -29,50 +29,48 @@
 {% block body %}
 
     <div class="box" >
-        <div class="div1 " style="background-color: #eeeeee; border: none">
+        <div class="div1 " >
             <h2 class="divTitle">Profile info</h2>
-            <div style="background-color: #eeeeee">
-    {% for usr in user %}
+            {% for usr in user %}
 
-            <p class="divContent" >Username:</p>
-            <input type="text"
-                   id="_Username"
-                   class="divfield"
-                   name="_Username"
-                   value="{{ usr.username }}"
-                   disabled/>
+                <p class="divContent" >Username:</p>
+                <input type="text"
+                       id="_Username"
+                       class="divfield"
+                       name="_Username"
+                       value="{{ usr.username }}"
+                       disabled/>
 
-            <p class="divContent" >Name:</p>
-            <input type="text"
-                   id="_name"
-                   class="divfield"
-                   name="_name"
-                   value="{{ usr.name }}"
-                   disabled/>
+                <p class="divContent" >Name:</p>
+                <input type="text"
+                       id="_name"
+                       class="divfield"
+                       name="_name"
+                       value="{{ usr.name }}"
+                       disabled/>
 
-            <p class="divContent" >Last name:</p>
-            <input type="text"
-                   id="_lasname"
-                   class="divfield"
-                   name="_lasname"
-                   value="{{ usr.lastname }}"
-                   disabled/>
+                <p class="divContent" >Last name:</p>
+                <input type="text"
+                       id="_lasname"
+                       class="divfield"
+                       name="_lasname"
+                       value="{{ usr.lastname }}"
+                       disabled/>
 
-            <p class="divContent" >Email:</p>
-            <input type="text"
-                   id="_email"
-                   class="divfield"
-                   name="_email"
-                   value="{{ usr.email }}"
-                   disabled/>
-        {% endfor %}
-           <p><a style="position: absolute; bottom: 80px; display: block; margin-left: 20px;" role="button" class="btn btn-info btn-lg" href="{{ path('members_edit', {'id': app.user.id}) }}">Edit profile info</a></p>
+                <p class="divContent" >Email:</p>
+                <input type="text"
+                       id="_email"
+                       class="divfield"
+                       name="_email"
+                       value="{{ usr.email }}"
+                       disabled/>
+            {% endfor %}
+            <p><a style="position: absolute; bottom: 80px; display: block; margin-left: 20px;" role="button" class="btn btn-info btn-lg" href="{{ path('members_edit', {'id': app.user.id}) }}">Edit profile info</a></p>
             {% if app.user %}
                 <a style="position: absolute; bottom: 20px; display: block; margin-left: 20px;" role="button" class="btn btn-info btn-lg" href="{{ logout_path('main') }}">Logout</a>
             {% endif %}
-                </div>
         </div>
-        <div class="div2 " style="background-color: #eeeeee; border: none">
+        <div class="div2 ">
             <h2 class="divTitle">My teams</h2>
 
             {% if usersteams is empty %}
@@ -105,7 +103,7 @@
             {% endif %}
         </div>
 
-        <div class="div3" style="background-color: #eeeeee; border: none">
+        <div class="div3">
             <h2 class="divTitle">Recent tasks</h2>
             {% if usertasks is empty %}
                 <p class="noteams">You currently have no tasks</p>
